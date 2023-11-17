@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D23490E2B07E6EF00F78D09 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 7D23490D2B07E6EF00F78D09 /* GoogleSignIn */; };
+		7D2349102B07E6EF00F78D09 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7D23490F2B07E6EF00F78D09 /* GoogleSignInSwift */; };
+		7D2349172B07E74900F78D09 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D2349142B07E74900F78D09 /* Info.plist */; };
 		7D4E81982B07CA63004B9B3C /* BookifySyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */; };
 		7D4E819A2B07CA63004B9B3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81992B07CA63004B9B3C /* ContentView.swift */; };
 		7D4E819C2B07CA65004B9B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E819B2B07CA65004B9B3C /* Assets.xcassets */; };
@@ -17,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D2349142B07E74900F78D09 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D4E81942B07CA63004B9B3C /* BookifySync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookifySync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookifySyncApp.swift; sourceTree = "<group>"; };
 		7D4E81992B07CA63004B9B3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,7 +35,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2349102B07E6EF00F78D09 /* GoogleSignInSwift in Frameworks */,
 				7D4E81AC2B07D0CA004B9B3C /* ComposableArchitecture in Frameworks */,
+				7D23490E2B07E6EF00F78D09 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +63,7 @@
 		7D4E81962B07CA63004B9B3C /* BookifySync */ = {
 			isa = PBXGroup;
 			children = (
+				7D2349142B07E74900F78D09 /* Info.plist */,
 				7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */,
 				7D4E81992B07CA63004B9B3C /* ContentView.swift */,
 				7D4E819B2B07CA65004B9B3C /* Assets.xcassets */,
@@ -93,6 +100,8 @@
 			name = BookifySync;
 			packageProductDependencies = (
 				7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */,
+				7D23490D2B07E6EF00F78D09 /* GoogleSignIn */,
+				7D23490F2B07E6EF00F78D09 /* GoogleSignInSwift */,
 			);
 			productName = BookifySync;
 			productReference = 7D4E81942B07CA63004B9B3C /* BookifySync.app */;
@@ -124,6 +133,7 @@
 			mainGroup = 7D4E818B2B07CA62004B9B3C;
 			packageReferences = (
 				7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				7D23490C2B07E6EE00F78D09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 7D4E81952B07CA63004B9B3C /* Products */;
 			projectDirPath = "";
@@ -141,6 +151,7 @@
 			files = (
 				7D4E819F2B07CA65004B9B3C /* Preview Assets.xcassets in Resources */,
 				7D4E819C2B07CA65004B9B3C /* Assets.xcassets in Resources */,
+				7D2349172B07E74900F78D09 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +373,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7D23490C2B07E6EE00F78D09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = exactVersion;
+				version = 7.0.0;
+			};
+		};
 		7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -373,6 +392,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7D23490D2B07E6EF00F78D09 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D23490C2B07E6EE00F78D09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		7D23490F2B07E6EF00F78D09 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D23490C2B07E6EE00F78D09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
