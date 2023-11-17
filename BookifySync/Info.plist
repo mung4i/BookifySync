@@ -4,6 +4,15 @@
 <dict>
 	<key>BUNDLE_ID</key>
 	<string>com.88Studios.BookifySync</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+            <key>CFBundleURLSchemes</key>
+                <array>
+                  <string>com.googleusercontent.apps.891211825550-qjuftds2380p3ofvkka4d90cjv7bhqo5</string>
+                </array>
+		</dict>
+	</array>
 	<key>GIDClientID</key>
 	<string>891211825550-qjuftds2380p3ofvkka4d90cjv7bhqo5.apps.googleusercontent.com</string>
 	<key>PLIST_VERSION</key>

@@ -8,14 +8,13 @@
 import SwiftUI
 
 import GoogleSignIn
-import GoogleSignInSwift
 
 @main
 struct BookifySyncApp: App {
     let persistenceController = PersistenceController.shared
     
-//    @UIApplicationDelegateAdaptor(AppDelegate.self)
-//    private var appDelegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self)
+    var appDelegate
 
     var body: some Scene {
         WindowGroup {
@@ -36,30 +35,3 @@ struct BookifySyncApp: App {
         }
     }
 }
-
-struct AuthView: View {
-    var body: some View {
-        VStack {
-            
-            GoogleSignInButton(action: handleSignIn)
-            
-        }
-    }
-    
-    private func handleSignIn() {
-        GIDSignIn.sharedInstance.signIn(
-            withPresenting: UIHostingController(rootView: self)
-        ) { result, error in
-            
-            guard let result else {
-                // Check error
-                
-                return
-            }
-            
-            
-        }
-    }
-}
-
-
