@@ -35,3 +35,20 @@ day-to-day when building applications, such as:
   <br> How to accomplish all of the above in a simple API with as few concepts and moving parts as 
   possible.
 
+
+## Key Features:
+
+* **Google Sign-In Integration
+   <br> Google Sign-In to facilitate user authentication.
+
+* **Calendar Display
+    <br> Presents a calendar showcasing bookings from various platforms.
+  
+* **Listing Overview
+   <br> Enable users to effortlessly view all their listings and associated bookings.
+  
+* **Listing Filtering
+   <br> Filter bookings based on specific listings.
+  
+* **Platform Filtering
+   <br> Filter bookings according to the booking platform.
