@@ -13,6 +13,7 @@
 		7D4E819F2B07CA65004B9B3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E819E2B07CA65004B9B3C /* Preview Assets.xcassets */; };
 		7D4E81A12B07CA65004B9B3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A02B07CA65004B9B3C /* Persistence.swift */; };
 		7D4E81A42B07CA65004B9B3C /* BookifySync.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */; };
+		7D4E81AC2B07D0CA004B9B3C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D4E81AC2B07D0CA004B9B3C /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			dependencies = (
 			);
 			name = BookifySync;
+			packageProductDependencies = (
+				7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */,
+			);
 			productName = BookifySync;
 			productReference = 7D4E81942B07CA63004B9B3C /* BookifySync.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 7D4E818B2B07CA62004B9B3C;
+			packageReferences = (
+				7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 7D4E81952B07CA63004B9B3C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D4E81AA2B07D0CA004B9B3C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */ = {
