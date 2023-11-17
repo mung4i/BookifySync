@@ -38,17 +38,17 @@ day-to-day when building applications, such as:
 
 ## Key Features:
 
-* **Google Sign-In Integration
+* **Google Sign-In Integration**
    <br> Google Sign-In to facilitate user authentication.
 
-* **Calendar Display
+* **Calendar Display**
     <br> Presents a calendar showcasing bookings from various platforms.
   
-* **Listing Overview
+* **Listing Overview**
    <br> Enable users to effortlessly view all their listings and associated bookings.
   
-* **Listing Filtering
+* **Listing Filtering**
    <br> Filter bookings based on specific listings.
   
-* **Platform Filtering
+* **Platform Filtering**
    <br> Filter bookings according to the booking platform.
