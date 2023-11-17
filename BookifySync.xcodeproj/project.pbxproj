@@ -12,6 +12,18 @@
 		7D2349192B07F0F800F78D09 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349182B07F0F800F78D09 /* AuthView.swift */; };
 		7D23491E2B07FA8900F78D09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23491D2B07FA8900F78D09 /* AppDelegate.swift */; };
 		7D2349202B08019800F78D09 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23491F2B08019800F78D09 /* UIApplication+.swift */; };
+		7D2349222B08056E00F78D09 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349212B08056E00F78D09 /* CalendarView.swift */; };
+		7D2349242B080E7F00F78D09 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349232B080E7F00F78D09 /* HeaderView.swift */; };
+		7D2349262B080F6400F78D09 /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349252B080F6400F78D09 /* DropDownView.swift */; };
+		7D2349282B08186700F78D09 /* CalendarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349272B08186700F78D09 /* CalendarListView.swift */; };
+		7D23492A2B081BFD00F78D09 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349292B081BFD00F78D09 /* String+.swift */; };
+		7D23492D2B081C6300F78D09 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23492C2B081C6300F78D09 /* Date+.swift */; };
+		7D2349302B081D2F00F78D09 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23492F2B081D2F00F78D09 /* Event.swift */; };
+		7D2349322B081D4E00F78D09 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349312B081D4E00F78D09 /* Listing.swift */; };
+		7D2349362B081DD100F78D09 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349352B081DD100F78D09 /* AuthHeaderView.swift */; };
+		7D23493A2B08215E00F78D09 /* SectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2349392B08215E00F78D09 /* SectionContentView.swift */; };
+		7D23493C2B0824FA00F78D09 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23493B2B0824FA00F78D09 /* SectionView.swift */; };
+		7D23493E2B08254F00F78D09 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23493D2B08254F00F78D09 /* Action.swift */; };
 		7D4E81982B07CA63004B9B3C /* BookifySyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */; };
 		7D4E819A2B07CA63004B9B3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81992B07CA63004B9B3C /* ContentView.swift */; };
 		7D4E819C2B07CA65004B9B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E819B2B07CA65004B9B3C /* Assets.xcassets */; };
@@ -25,6 +37,18 @@
 		7D2349182B07F0F800F78D09 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		7D23491D2B07FA8900F78D09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D23491F2B08019800F78D09 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		7D2349212B08056E00F78D09 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		7D2349232B080E7F00F78D09 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		7D2349252B080F6400F78D09 /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
+		7D2349272B08186700F78D09 /* CalendarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListView.swift; sourceTree = "<group>"; };
+		7D2349292B081BFD00F78D09 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		7D23492C2B081C6300F78D09 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		7D23492F2B081D2F00F78D09 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		7D2349312B081D4E00F78D09 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		7D2349352B081DD100F78D09 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
+		7D2349392B08215E00F78D09 /* SectionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContentView.swift; sourceTree = "<group>"; };
+		7D23493B2B0824FA00F78D09 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
+		7D23493D2B08254F00F78D09 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		7D4E81942B07CA63004B9B3C /* BookifySync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookifySync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookifySyncApp.swift; sourceTree = "<group>"; };
 		7D4E81992B07CA63004B9B3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +71,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D23492B2B081C4C00F78D09 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7D23492C2B081C6300F78D09 /* Date+.swift */,
+				7D2349292B081BFD00F78D09 /* String+.swift */,
+				7D23491F2B08019800F78D09 /* UIApplication+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7D23492E2B081D1D00F78D09 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				7D23493D2B08254F00F78D09 /* Action.swift */,
+				7D23492F2B081D2F00F78D09 /* Event.swift */,
+				7D2349312B081D4E00F78D09 /* Listing.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		7D2349332B081D7A00F78D09 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7D2349392B08215E00F78D09 /* SectionContentView.swift */,
+				7D23493B2B0824FA00F78D09 /* SectionView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7D2349342B081D9100F78D09 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				7D2349332B081D7A00F78D09 /* Components */,
+				7D2349372B081E2A00F78D09 /* Auth */,
+				7D2349382B081ECD00F78D09 /* Calendar */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		7D2349372B081E2A00F78D09 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7D2349182B07F0F800F78D09 /* AuthView.swift */,
+				7D2349352B081DD100F78D09 /* AuthHeaderView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		7D2349382B081ECD00F78D09 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				7D2349252B080F6400F78D09 /* DropDownView.swift */,
+				7D2349272B08186700F78D09 /* CalendarListView.swift */,
+				7D2349212B08056E00F78D09 /* CalendarView.swift */,
+				7D2349232B080E7F00F78D09 /* HeaderView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		7D4E818B2B07CA62004B9B3C = {
 			isa = PBXGroup;
 			children = (
@@ -66,15 +149,16 @@
 		7D4E81962B07CA63004B9B3C /* BookifySync */ = {
 			isa = PBXGroup;
 			children = (
+				7D23492E2B081D1D00F78D09 /* Domain */,
+				7D23492B2B081C4C00F78D09 /* Extensions */,
+				7D2349342B081D9100F78D09 /* UI */,
 				7D4E819B2B07CA65004B9B3C /* Assets.xcassets */,
 				7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */,
 				7D2349142B07E74900F78D09 /* Info.plist */,
-				7D2349182B07F0F800F78D09 /* AuthView.swift */,
 				7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */,
 				7D4E81992B07CA63004B9B3C /* ContentView.swift */,
 				7D4E81A02B07CA65004B9B3C /* Persistence.swift */,
 				7D23491D2B07FA8900F78D09 /* AppDelegate.swift */,
-				7D23491F2B08019800F78D09 /* UIApplication+.swift */,
 			);
 			path = BookifySync;
 			sourceTree = "<group>";
@@ -157,12 +241,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D23492D2B081C6300F78D09 /* Date+.swift in Sources */,
+				7D23493E2B08254F00F78D09 /* Action.swift in Sources */,
 				7D23491E2B07FA8900F78D09 /* AppDelegate.swift in Sources */,
+				7D23493C2B0824FA00F78D09 /* SectionView.swift in Sources */,
+				7D2349262B080F6400F78D09 /* DropDownView.swift in Sources */,
+				7D2349282B08186700F78D09 /* CalendarListView.swift in Sources */,
+				7D2349242B080E7F00F78D09 /* HeaderView.swift in Sources */,
+				7D2349362B081DD100F78D09 /* AuthHeaderView.swift in Sources */,
 				7D4E81A42B07CA65004B9B3C /* BookifySync.xcdatamodeld in Sources */,
+				7D2349222B08056E00F78D09 /* CalendarView.swift in Sources */,
+				7D2349322B081D4E00F78D09 /* Listing.swift in Sources */,
 				7D2349202B08019800F78D09 /* UIApplication+.swift in Sources */,
 				7D2349192B07F0F800F78D09 /* AuthView.swift in Sources */,
+				7D23493A2B08215E00F78D09 /* SectionContentView.swift in Sources */,
 				7D4E81A12B07CA65004B9B3C /* Persistence.swift in Sources */,
 				7D4E819A2B07CA63004B9B3C /* ContentView.swift in Sources */,
+				7D23492A2B081BFD00F78D09 /* String+.swift in Sources */,
+				7D2349302B081D2F00F78D09 /* Event.swift in Sources */,
 				7D4E81982B07CA63004B9B3C /* BookifySyncApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +397,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookifySync/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -336,6 +433,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookifySync/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
