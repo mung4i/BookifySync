@@ -13,7 +13,6 @@ struct CalendarListView: View {
     let events: [Event]
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
                 ForEach(getDateRange(), id: \.self) { date in
                     VStack(alignment: .center) {
@@ -28,11 +27,10 @@ struct CalendarListView: View {
 //                                .padding(.horizontal, 8)
 //                        }
                     }
-                    .frame(width: 100, height: 150)
+                    .frame(width: 100, height: 60)
                     .border(Color.gray, width: 0.5)
                 }
             }
-        }
         .padding()
     }
 
