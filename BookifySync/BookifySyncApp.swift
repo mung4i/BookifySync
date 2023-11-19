@@ -15,6 +15,10 @@ struct BookifySyncApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
+    
+    init() {
+        Fonts.registerFonts()
+    }
 
     var body: some Scene {
         WindowGroup {
