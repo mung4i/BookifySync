@@ -16,26 +16,71 @@ struct SectionContentView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                VStack(spacing: 0) {
-                    ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
-                        SectionView(action: actions[index], sectionTitle: section.name)
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                HStack(spacing: 0) {
+                    VStack(spacing: 0) {
+                        SectionView(
+                            action: {},
+                            sectionTitle: "Listings",
+                            width: 150,
+                            height: 100)
+                        
+                        ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
+                            SectionView(
+                                action: actions[index],
+                                sectionTitle: section.name,
+                                width: 150)
+                        }
+                    }
+                    
+                    VStack(spacing: 0) {
+                        CalendarListView(
+                            startDate: startDate,
+                            endDate: endDate,
+                            events: events,
+                            height: 100)
+                        
+                        ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
+                            grid()
+                        }
                     }
                 }
-            
-                VStack(spacing: 0) {
-                    CalendarListView(startDate: startDate, endDate: endDate, events: events)
-                    
-                    Spacer()
-                }
-                .padding(.top, -16)
-                .padding(.leading, -23)
-                
-                
             }
-            .frame(height: CGFloat(sections.count) * 60)
-        .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity)
         }
+    }
+    
+    private func grid() -> some View {
+        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+            GridRow {
+                ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, section in
+                    SectionView(action: getActions()[index], sectionTitle: "")
+                }
+            }
+        }
+    }
+     
+    private func getDateRange() -> [Date] {
+        var currentDate = startDate
+        var dates: [Date] = []
+        
+        while currentDate <= endDate {
+            dates.append(currentDate)
+            currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+        
+        return dates
+    }
+    
+    private func getActions() -> [Action] {
+        
+        var actions: [Action] = []
+        
+        for _ in getDateRange() {
+            actions.append({})
+        }
+        
+        return actions
     }
 }
 
@@ -50,7 +95,7 @@ struct SectionContentView: View {
     ]
     
     let listings: [Listing] = [
-        Listing(name: "Listings"),
+//        Listing(name: "Listings"),
         Listing(name: "Seaside Cottage"),
         Listing(name: "Mali Apartments"),
         Listing(name: "Lui Homes"),

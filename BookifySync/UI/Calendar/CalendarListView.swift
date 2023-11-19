@@ -8,30 +8,40 @@
 import SwiftUI
 
 struct CalendarListView: View {
+    init(
+        startDate: Date,
+        endDate: Date,
+        events: [Event],
+        width: CGFloat = 100,
+        height: CGFloat = 60
+    ) {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.events = events
+        self.width = width
+        self.height = height
+    }
+    
     let startDate: Date
     let endDate: Date
     let events: [Event]
+    let width: CGFloat
+    let height: CGFloat
 
     var body: some View {
-            HStack(spacing: 0) {
-                ForEach(getDateRange(), id: \.self) { date in
-                    VStack(alignment: .center) {
-                        Text(date.formatDate().uppercased())
-                            .font(.headline)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 4)
-
-//                        ForEach(getEvents(for: date)) { event in
-//                            Text(event.title)
-//                                .foregroundColor(.blue)
-//                                .padding(.horizontal, 8)
-//                        }
-                    }
-                    .frame(width: 100, height: 60)
-                    .border(Color.gray, width: 0.5)
+        HStack(spacing: 0) {
+            ForEach(getDateRange(), id: \.self) { date in
+                VStack(alignment: .center) {
+                    Text(date.formatDate().uppercased())
+                        .font(.headline)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 4)
                 }
+                .frame(width: width, height: height)
+                .border(Color.gray, width: 0.5)
             }
-        .padding()
+        }
+//        .padding()
     }
 
     private func getDateRange() -> [Date] {
