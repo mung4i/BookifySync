@@ -8,6 +8,20 @@
 import SwiftUI
 
 struct SectionContentView: View {
+    init(
+        actions: [Action] = generateActions(count: Listing.examples.count),
+        endDate: Date = Date.advanceDate(component: .year),
+        events: [Event] = Event.examples,
+        sections: [Listing] = Listing.examples,
+        startDate: Date = Date()
+    ) {
+        self.actions = actions
+        self.endDate = endDate
+        self.events = events
+        self.sections = sections
+        self.startDate = startDate
+    }
+    
     let actions: [Action]
     let endDate: Date
     let events: [Event]
@@ -40,9 +54,7 @@ struct SectionContentView: View {
                             events: events,
                             height: 100)
                         
-                        ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
-                            grid()
-                        }
+                        grid()
                     }
                 }
             }
@@ -56,15 +68,18 @@ struct SectionContentView: View {
     }
     
     private func grid() -> some View {
-        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-            GridRow {
-                ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, section in
-                    SectionView(action: getActions()[index], sectionTitle: "")
+        ForEach(Array(sections.enumerated()), id: \.offset) { parentIndex, parentSection in
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                GridRow {
+                    ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, section in
+                        let event = events
+                        SectionView(action: getActions()[index], sectionTitle: "")
+                    }
                 }
             }
         }
     }
-     
+    
     private func getDateRange() -> [Date] {
         var currentDate = startDate
         var dates: [Date] = []
@@ -78,7 +93,6 @@ struct SectionContentView: View {
     }
     
     private func getActions() -> [Action] {
-        
         var actions: [Action] = []
         
         for _ in getDateRange() {
@@ -90,32 +104,5 @@ struct SectionContentView: View {
 }
 
 #Preview {
-    let startDate = Date()
-    let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())!
-    let events = [
-        Event(date: Date(), title: "Event 1"),
-        Event(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, title: "Event 2"),
-        Event(date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!, title: "Event 3"),
-        // Add more events as needed
-    ]
-    
-    let listings: [Listing] = [
-//        Listing(name: "Listings"),
-        Listing(name: "Seaside Cottage"),
-        Listing(name: "Mali Apartments"),
-        Listing(name: "Lui Homes"),
-        Listing(name: "City View"),
-        Listing(name: "Zuri Homes"),
-    ]
-    
-    let actions: [Action] = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-    
-    return SectionContentView(actions: actions, endDate: endDate, events: events, sections: listings, startDate: startDate)
+    SectionContentView()
 }

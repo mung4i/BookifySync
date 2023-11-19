@@ -83,14 +83,5 @@ struct DropDownView: View {
 }
 
 #Preview {
-    let listings: [Listing] = [
-        Listing(name: "All"),
-        Listing(name: "Seaside Cottage"),
-        Listing(name: "Mali Apartments"),
-        Listing(name: "Lui Homes"),
-        Listing(name: "City View"),
-        Listing(name: "Zuri Homes"),
-    ]
-    
-    return DropDownView(listings: listings)
+    DropDownView(listings: Listing.dropdownListings)
 }

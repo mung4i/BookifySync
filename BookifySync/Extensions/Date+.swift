@@ -16,4 +16,15 @@ extension Date {
         let date: String = dateFormatter.string(from: self)
         return date.addNewLineAfterSpace()
     }
+    
+    static func advanceDate(
+        component: Calendar.Component = .day,
+        value: Int = 1,
+        date: Date = Date()
+    ) -> Date {
+        Calendar.current.date(
+            byAdding: component,
+            value: value,
+            to: date)!
+    }
 }

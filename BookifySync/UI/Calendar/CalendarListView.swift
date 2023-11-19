@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CalendarListView: View {
     init(
-        startDate: Date,
-        endDate: Date,
-        events: [Event],
+        startDate: Date = Date(),
+        endDate: Date = Date.advanceDate(component: .year),
+        events: [Event] = Event.examples,
         width: CGFloat = 100,
         height: CGFloat = 60
     ) {
@@ -41,7 +41,6 @@ struct CalendarListView: View {
                 .border(Color.gray, width: 0.5)
             }
         }
-//        .padding()
     }
 
     private func getDateRange() -> [Date] {
@@ -57,23 +56,12 @@ struct CalendarListView: View {
     }
 
     private func getEvents(for date: Date) -> [Event] {
-        return events.filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
+        return events.filter { Calendar.current.isDate($0.startDate, inSameDayAs: date) }
     }
 }
 
 #Preview {
-    
-    let startDate = Date()
-    let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())!
-    let events = [
-        Event(date: Date(), title: "Event 1"),
-        Event(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, title: "Event 2"),
-        Event(date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!, title: "Event 3"),
-        // Add more events as needed
-    ]
-    
-    
-    return CalendarListView(startDate: startDate, endDate: endDate, events: events)
+    return CalendarListView()
 }
 
  
