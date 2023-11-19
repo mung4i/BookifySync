@@ -7,10 +7,10 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-            <key>CFBundleURLSchemes</key>
-                <array>
-                  <string>com.googleusercontent.apps.891211825550-qjuftds2380p3ofvkka4d90cjv7bhqo5</string>
-                </array>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.891211825550-qjuftds2380p3ofvkka4d90cjv7bhqo5</string>
+			</array>
 		</dict>
 	</array>
 	<key>GIDClientID</key>
@@ -19,5 +19,26 @@
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.891211825550-qjuftds2380p3ofvkka4d90cjv7bhqo5</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Black</string>
+		<string>Poppins-BlackItalic</string>
+		<string>Poppins-Bold</string>
+		<string>Poppins-BoldItalic</string>
+		<string>Poppins-ExtraBold</string>
+		<string>Poppins-ExtraBoldItalic</string>
+		<string>Poppins-ExtraLight</string>
+		<string>Poppins-ExtraLightItalic</string>
+		<string>Poppins-Italic</string>
+		<string>Poppins-Light</string>
+		<string>Poppins-LightItalic</string>
+		<string>Poppins-Medium</string>
+		<string>Poppins-MediumItalic</string>
+		<string>Poppins-Regular</string>
+		<string>Poppins-SemiBold</string>
+		<string>Poppins-SemiBoldItalic</string>
+		<string>Poppins-Thin</string>
+		<string>Poppins-ThinItalic</string>
+	</array>
 </dict>
 </plist>

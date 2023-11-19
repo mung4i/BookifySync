@@ -13,14 +13,13 @@ struct HeaderView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text("Calendar")
-                .font(.largeTitle)
-                .bold()
+                .font(.headingRegular)
             
             Spacer()
             
             Image("filter", bundle: .main)
                 .resizable()
-                .frame(width: 30, height: 30)
+                .frame(width: 20, height: 20)
                 .onTapGesture {
                     action()
                 }

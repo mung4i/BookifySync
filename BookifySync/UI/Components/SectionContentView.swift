@@ -18,7 +18,7 @@ struct SectionContentView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                 HStack(spacing: 0) {
-                    VStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 0) {
                         SectionView(
                             action: {},
                             sectionTitle: "Listings",
@@ -47,6 +47,11 @@ struct SectionContentView: View {
                 }
             }
             .frame(maxWidth: .infinity)
+            .cornerRadius(8)
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.4))
+            }
         }
     }
     

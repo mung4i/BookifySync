@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CalendarView: View {
-    
+    let dropdownListings: [Listing]
     let listings: [Listing]
     
     let actions: [Action]
@@ -19,12 +19,14 @@ struct CalendarView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             HeaderView(action: {})
                 .padding(.top, 32)
             
-            DropDownView(listings: listings)
+            DropDownView(listings: dropdownListings)
                 .frame(width: 280)
+                .opacity(1)
+                .zIndex(10)
             
             SectionContentView(
                 actions: actions,
@@ -33,9 +35,8 @@ struct CalendarView: View {
                 sections: listings,
                 startDate: startDate
             )
-            .padding()
-            
-            Spacer()
+            .padding(.leading, 16)
+            .padding(.bottom, 200)
         }
     }
 }
@@ -60,8 +61,16 @@ struct CalendarView: View {
         {},
     ]
     
+    let dropdownListings: [Listing] = [
+        Listing(name: "All"),
+        Listing(name: "Seaside Cottage"),
+        Listing(name: "Mali Apartments"),
+        Listing(name: "Lui Homes"),
+        Listing(name: "City View"),
+        Listing(name: "Zuri Homes"),
+    ]
+    
     let listings: [Listing] = [
-        Listing(name: "Listings"),
         Listing(name: "Seaside Cottage"),
         Listing(name: "Mali Apartments"),
         Listing(name: "Lui Homes"),
@@ -70,6 +79,7 @@ struct CalendarView: View {
     ]
     
     return CalendarView(
+        dropdownListings: dropdownListings,
         listings: listings,
         actions: actions,
         endDate: endDate,
