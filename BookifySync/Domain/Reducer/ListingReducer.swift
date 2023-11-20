@@ -12,35 +12,41 @@ import ComposableArchitecture
 @Reducer
 struct ListingReducer {
     struct State: Equatable, Identifiable {
-        @BindingState var description = ""
+        @BindingState var description: FilterKey = .all
         let id: UUID
     }
     
-    enum Action: BindableAction, Sendable {
-        case binding(BindingAction<State>)
+    enum Action {
+        case listingTapped(FilterKey)
       }
 
       var body: some Reducer<State, Action> {
-        BindingReducer()
+          Reduce { state, action in
+              switch action {
+              case let .listingTapped(filter):
+                  state.description = filter
+                  return .none
+              }
+          }
       }
 }
 
 extension IdentifiedArray where ID == ListingReducer.State.ID, Element == ListingReducer.State {
     static let mock: Self = [
         ListingReducer.State(
-            description: FilterKey.seasideCottage.rawValue,
+            description: .seasideCottage,
             id: UUID()),
         ListingReducer.State(
-            description: FilterKey.maliApartments.rawValue,
+            description: .maliApartments,
             id: UUID()),
         ListingReducer.State(
-            description: FilterKey.luiHomes.rawValue,
+            description: .luiHomes,
             id: UUID()),
         ListingReducer.State(
-            description: FilterKey.cityView.rawValue,
+            description: .cityView,
             id: UUID()),
         ListingReducer.State(
-            description: FilterKey.zuriHomes.rawValue,
+            description: .zuriHomes,
             id: UUID())
     ]
 }
