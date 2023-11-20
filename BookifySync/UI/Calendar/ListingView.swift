@@ -24,7 +24,7 @@ struct ListingView: View {
         }
         .padding(.all, 16)
         .frame(width: 330, height: 389)
-        .shadow(color: Color(red: 0.86, green: 0.86, blue: 0.86), radius: 45, x: 20, y: 20)
+        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
         .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
         .cornerRadius(8)
         .overlay {

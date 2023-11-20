@@ -32,8 +32,9 @@ struct TravelerCard: View {
             }
             .padding(EdgeInsets(top: 32, leading: 10, bottom: 32, trailing: 32))
         }
+        .background(.white)
         .frame(width: 265, height: 125)
-        .shadow(color: Color(red: 0.86, green: 0.86, blue: 0.86), radius: 45, x: 20, y: 20)
+        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
         .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
         .cornerRadius(8)
         .overlay {
