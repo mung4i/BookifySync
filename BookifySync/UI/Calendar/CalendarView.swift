@@ -5,8 +5,8 @@
 //  Created by Martin Mungai on 17/11/2023.
 //
 
-import Foundation
-import SwiftUI
+import ComposableArchitecture
+@preconcurrency import SwiftUI
 
 struct CalendarView: View {
     init(
@@ -14,15 +14,22 @@ struct CalendarView: View {
         listings: [Listing] = Listing.examples,
         actions: [Action] = generateActions(count: Listing.dropdownListings.count),
         endDate: Date = Date.advanceDate(component: .year),
-        startDate: Date = Date()
+        startDate: Date = Date(),
+        store: StoreOf<CalendarReducer> = Store(
+            initialState: CalendarReducer.State(calendars: .mock)
+        ) {
+            CalendarReducer()
+        }
     ) {
         self.dropdownListings = dropdownListings
         self.listings = listings
         self.actions = actions
         self.endDate = endDate
         self.startDate = startDate
+        self.store = store
     }
     
+    let store: StoreOf<CalendarReducer>
     let dropdownListings: [Listing]
     let listings: [Listing]
     let actions: [Action]
