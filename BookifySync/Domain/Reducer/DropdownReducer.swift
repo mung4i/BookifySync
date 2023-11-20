@@ -30,6 +30,10 @@ struct DropdownReducer {
     }
 }
 
+extension DropdownReducer {
+    static let mock: DropdownReducer.State = .init(filter: .all, id: UUID())
+}
+
 extension IdentifiedArray where ID == DropdownReducer.State.ID, Element == DropdownReducer.State {
     static let mock: Self = [
         DropdownReducer.State(filter: .all, id: UUID()),

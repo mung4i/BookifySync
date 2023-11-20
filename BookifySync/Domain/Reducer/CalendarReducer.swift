@@ -10,47 +10,32 @@ import ComposableArchitecture
 
 @Reducer
 struct CalendarReducer {
-    enum Action: BindableAction, Sendable {
-        case binding(BindingAction<State>)
-        case dropdown(IdentifiedActionOf<DropdownReducer>)
-        case showCalendarView(IdentifiedActionOf<ListingReducer>)
+    enum Action {
+        case dropdown(DropdownReducer.Action)
+        case showCalendarView(IdentifiedActionOf<CalendarGridReducer>)
     }
     
     struct State: Equatable {
         @BindingState var filter: FilterKey = .all
         
-        var calendars: IdentifiedArrayOf<ListingReducer.State> = []
-        var dropdown: IdentifiedArrayOf<DropdownReducer.State> = []
+        var calendars: IdentifiedArrayOf<CalendarGridReducer.State> = []
+        var dropdown: DropdownReducer.State?
     }
     
     var body: some Reducer<State, Action> {
-        BindingReducer()
         Reduce { state, action in
             switch action {
                 
-            case .binding:
+            case let .dropdown(.filterTapped(filter)):
+                state.filter = filter
                 return .none
                 
-            case let .dropdown(.element(_, action)):
-                switch action {
-                case let .filterTapped(filter):
-                    state.filter = filter
-                }
-                return .none
-                
-            case let .showCalendarView(.element(_, action)):
-                switch action {
-                case let .listingTapped(filter):
-                    state.filter = filter
-                }
+            case .showCalendarView(.element(_, _)):
                 return .none
             }
         }
-        .forEach(\.dropdown, action: \.dropdown) {
-            DropdownReducer()
-        }
         .forEach(\.calendars, action: \.showCalendarView) {
-            ListingReducer()
+            CalendarGridReducer()
         }
     }
 }
