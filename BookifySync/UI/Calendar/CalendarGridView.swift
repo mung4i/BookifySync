@@ -11,7 +11,7 @@ struct CalendarGridView: View {
     private let calendar = Calendar.current
     private let currentDate = Date()
     
-    let days: [String] = [
+    private let days: [String] = [
         "SAT",
         "SUN",
         "MON",

@@ -9,11 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct DropDownView: View {
-    let store: StoreOf<DropdownReducer> = Store(
-        initialState: DropdownReducer.State(filter: .all, id: UUID())
-    ) {
-        DropdownReducer()
-    }
+    let store: StoreOf<DropdownReducer>
     
     let listings: [Listing] = Listing.dropdownListings
     @State private var isDropdownVisible = false
@@ -93,5 +89,9 @@ struct DropDownView: View {
 }
 
 #Preview {
-    DropDownView()
+    DropDownView(store: Store(
+        initialState: DropdownReducer.State(filter: .all, id: UUID())
+    ) {
+        DropdownReducer()._printChanges()
+    })
 }

@@ -6,7 +6,7 @@
 //
 
 import ComposableArchitecture
-@preconcurrency import SwiftUI
+import SwiftUI
 
 struct CalendarView: View {
     init(
@@ -16,9 +16,9 @@ struct CalendarView: View {
         store: StoreOf<CalendarReducer> = Store(
             initialState: CalendarReducer.State(
                 calendars: .mock,
-                dropdown: .mock)
+                dropdown: DropdownReducer.mock)
         ) {
-            CalendarReducer()
+            CalendarReducer()._printChanges()
         }
     ) {
         self.actions = actions
@@ -32,24 +32,45 @@ struct CalendarView: View {
     let endDate: Date
     let startDate: Date
     
+    struct ViewState: Equatable {
+        @BindingViewState var filter: FilterKey
+        
+        init(store: BindingViewStore<CalendarReducer.State>) {
+            self._filter = store.$filter
+        }
+    }
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 16) {
                 HeaderView(action: {})
                     .padding(.top, 32)
                 
-                DropDownView()
-                    .frame(width: 280)
-                    .opacity(1)
-                    .zIndex(10)
+                IfLetStore(
+                    self.store.scope(
+                        state: \.dropdown,
+                        action: { .dropdown($0) }
+                    )
+                ) { store in
+                    DropDownView(store: store)
+                        .frame(width: 280)
+                        .opacity(1)
+                        .zIndex(10)
+                }
                 
-                BookingsView(
-                    actions: actions,
-                    endDate: endDate,
-                    startDate: startDate
-                )
-                .padding(.leading, 16)
-                .padding(.bottom, 200)
+                if viewStore.$filter.wrappedValue == .all {
+                    BookingsView(
+                        actions: actions,
+                        endDate: endDate,
+                        startDate: startDate
+                    )
+                    .padding(.leading, 16)
+                    .padding(.bottom, 175)
+                } else {
+                    CalendarGridView()
+                        .padding(.leading, 16)
+                        .padding(.bottom, 200)
+                }
             }
         }
     }

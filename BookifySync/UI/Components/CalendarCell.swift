@@ -21,5 +21,5 @@ struct CalendarCell: View {
 }
 
 #Preview {
-    CalendarCell()
+    CalendarCell(day: "1")
 }
