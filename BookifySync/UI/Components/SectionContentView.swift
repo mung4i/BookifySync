@@ -11,22 +11,22 @@ struct SectionContentView: View {
     init(
         actions: [Action] = generateActions(count: Listing.examples.count),
         endDate: Date = Date.advanceDate(component: .year),
-        events: [Event] = Event.examples,
         sections: [Listing] = Listing.examples,
         startDate: Date = Date()
     ) {
         self.actions = actions
         self.endDate = endDate
-        self.events = events
         self.sections = sections
         self.startDate = startDate
     }
     
     let actions: [Action]
     let endDate: Date
-    let events: [Event]
     let sections: [Listing]
     let startDate: Date
+            
+    @State var events: [Event] = Event.examples
+    @State var ids: [UUID] = []
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -68,28 +68,21 @@ struct SectionContentView: View {
     }
     
     private func grid() -> some View {
-        ForEach(Array(sections.enumerated()), id: \.offset) { parentIndex, parentSection in
+        ForEach(Array(sections.enumerated()), id: \.offset) { sectionIndex, _ in
             Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                 GridRow {
-                    ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, section in
-                        let event = events
-                        SectionView(action: getActions()[index], sectionTitle: "")
+                    ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
+                        SectionView(action: getActions()[index])
+                            .overlay {
+                                let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
+                                PillView(name: event?.title ?? "", width: event?.width ?? 100)
+                                    .opacity(event == nil ? 0 : 1)
+                                    .padding(.leading, 150)
+                            }
                     }
                 }
             }
         }
-    }
-    
-    private func getDateRange() -> [Date] {
-        var currentDate = startDate
-        var dates: [Date] = []
-        
-        while currentDate <= endDate {
-            dates.append(currentDate)
-            currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-        }
-        
-        return dates
     }
     
     private func getActions() -> [Action] {
@@ -100,6 +93,25 @@ struct SectionContentView: View {
         }
         
         return actions
+    }
+    
+    private func getDateRange() -> [Date] {
+        var currentDate = startDate
+        var dates: [Date] = []
+        
+        while currentDate <= endDate {
+            dates.append(currentDate)
+            currentDate = Date.advanceDate(date: currentDate)
+        }
+        
+        return dates
+    }
+    
+    private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
+        events.filter {
+            $0.listing.name == sections[sectionIndex].name &&
+            $0.startDate.formatDate() == getDateRange()[dateIndex].formatDate()
+        }.first
     }
 }
 

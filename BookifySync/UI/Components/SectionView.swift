@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SectionView: View {
     init(
-        action: @escaping Action,
-        sectionTitle: String,
+        action: @escaping Action = {},
+        sectionTitle: String = "",
         width: CGFloat = 100,
         height: CGFloat = 60,
         isTitleBold: Bool = false

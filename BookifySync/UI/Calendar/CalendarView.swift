@@ -14,14 +14,12 @@ struct CalendarView: View {
         listings: [Listing] = Listing.examples,
         actions: [Action] = generateActions(count: Listing.dropdownListings.count),
         endDate: Date = Date.advanceDate(component: .year),
-        events: [Event] = Event.examples,
         startDate: Date = Date()
     ) {
         self.dropdownListings = dropdownListings
         self.listings = listings
         self.actions = actions
         self.endDate = endDate
-        self.events = events
         self.startDate = startDate
     }
     
@@ -29,7 +27,6 @@ struct CalendarView: View {
     let listings: [Listing]
     let actions: [Action]
     let endDate: Date
-    let events: [Event]
     let startDate: Date
     
     var body: some View {
@@ -45,7 +42,6 @@ struct CalendarView: View {
             SectionContentView(
                 actions: actions,
                 endDate: endDate,
-                events: events,
                 sections: listings,
                 startDate: startDate
             )

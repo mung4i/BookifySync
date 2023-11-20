@@ -8,12 +8,28 @@
 import SwiftUI
 
 struct PillView: View {
+    init(
+    action: @escaping Action = {},
+    color: Color = .red,
+    image: String = "",
+    name: String,
+    width: CGFloat = 150,
+    height: CGFloat = 45
+    ) {
+        self.action = action
+        self.color = color
+        self.image = image
+        self.name = name
+        self.width = width
+        self.height = height
+    }
+    
     let action: Action
     let color: Color
     let image: String
     let name: String
-    let width: CGFloat = 150
-    let height: CGFloat = 45
+    let width: CGFloat
+    let height: CGFloat
     
     private var pillImage: Image {
         if image == "" {
