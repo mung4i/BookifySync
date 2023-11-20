@@ -7,22 +7,20 @@
 
 import SwiftUI
 
-struct SectionContentView: View {
+struct BookingsView: View {
     init(
         actions: [Action] = generateActions(count: Listing.examples.count),
         endDate: Date = Date.advanceDate(component: .year),
-        sections: [Listing] = Listing.examples,
         startDate: Date = Date()
     ) {
         self.actions = actions
         self.endDate = endDate
-        self.sections = sections
         self.startDate = startDate
     }
     
     let actions: [Action]
     let endDate: Date
-    let sections: [Listing]
+    let sections: [Listing] = Listing.examples
     let startDate: Date
             
     @State var events: [Event] = Event.examples
@@ -34,7 +32,6 @@ struct SectionContentView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
                         SectionView(
-                            action: {},
                             sectionTitle: "Listings",
                             width: 150,
                             height: 100,
@@ -120,5 +117,5 @@ struct SectionContentView: View {
 }
 
 #Preview {
-    SectionContentView()
+    BookingsView()
 }

@@ -5,10 +5,17 @@
 //  Created by Martin Mungai on 18/11/2023.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct DropDownView: View {
-    let listings: [Listing]
+    let store: StoreOf<DropdownReducer> = Store(
+        initialState: DropdownReducer.State(filter: .all, id: UUID())
+    ) {
+        DropdownReducer()
+    }
+    
+    let listings: [Listing] = Listing.dropdownListings
     @State private var isDropdownVisible = false
     @State private var selectedOption = "All"
 
@@ -55,33 +62,36 @@ struct DropDownView: View {
     }
     
     private var dropdownList: some View {
-        VStack(alignment: .leading) {
-            ForEach(listings, id: \.self) { option in
-                HStack {
-                    Button(action: {
-                        selectedOption = option.name
-                        isDropdownVisible.toggle()
-                    }) {
-                        Text(option.name)
-                            .padding(8)
-                            .foregroundColor(.black)
-                            .font(.subheading2)
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            VStack(alignment: .leading) {
+                ForEach(listings, id: \.self) { option in
+                    HStack {
+                        Button(action: {
+                            selectedOption = option.name
+                            isDropdownVisible.toggle()
+                            viewStore.send(.filterTapped(FilterKey(rawValue: option.name) ?? .all))
+                        }) {
+                            Text(option.name)
+                                .padding(8)
+                                .foregroundColor(.black)
+                                .font(.subheading2)
+                        }
+                        
+                        Spacer()
                     }
-                    
-                    Spacer()
+                    .frame(height: 50)
                 }
-                .frame(height: 50)
             }
-        }
-        .background(.white)
-        .cornerRadius(8)
-        .overlay {
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray.opacity(0.4))
+            .background(.white)
+            .cornerRadius(8)
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.4))
+            }
         }
     }
 }
 
 #Preview {
-    DropDownView(listings: Listing.dropdownListings)
+    DropDownView()
 }
