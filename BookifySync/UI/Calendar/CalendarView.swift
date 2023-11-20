@@ -43,7 +43,7 @@ struct CalendarView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 16) {
-                HeaderView(action: {})
+                HeaderView(title: "Calendar", imageTitle: "filter")
                     .padding(.top, 32)
                 
                 IfLetStore(
