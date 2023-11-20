@@ -13,7 +13,8 @@ struct SectionView: View {
         sectionTitle: String = "",
         width: CGFloat = 100,
         height: CGFloat = 60,
-        isTitleBold: Bool = false
+        isTitleBold: Bool = false,
+        backgroundColor: Color = .white
 
     ) {
         self.action = action
@@ -21,6 +22,7 @@ struct SectionView: View {
         self.width = width
         self.height = height
         self.isTitleBold = isTitleBold
+        self.backgroundColor = backgroundColor
     }
     
     let action: Action
@@ -28,6 +30,7 @@ struct SectionView: View {
     let width: CGFloat
     let height: CGFloat
     let isTitleBold: Bool
+    let backgroundColor: Color
     
     private var font: Font {
         isTitleBold ? .subheading2Bold: .subheading2
@@ -40,6 +43,7 @@ struct SectionView: View {
                 .frame(alignment: .leading)
                 .font(font)
                 .foregroundColor(.black)
+                .background(backgroundColor)
         }
         .frame(width: width, height: height)
         .fixedSize()

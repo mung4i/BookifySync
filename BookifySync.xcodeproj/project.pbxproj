@@ -52,6 +52,8 @@
 		7D68421F2B0A743100649F60 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D68421E2B0A743100649F60 /* Fonts.swift */; };
 		7D6842212B0A762300649F60 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6842202B0A762300649F60 /* Font+.swift */; };
 		7D6842232B0A7E9B00649F60 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6842222B0A7E9B00649F60 /* PillView.swift */; };
+		7D724D1C2B0B47220060134E /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D724D1B2B0B47220060134E /* Color+.swift */; };
+		7D724D1E2B0B476A0060134E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D724D1D2B0B476A0060134E /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +101,8 @@
 		7D68421E2B0A743100649F60 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7D6842202B0A762300649F60 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		7D6842222B0A7E9B00649F60 /* PillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
+		7D724D1B2B0B47220060134E /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		7D724D1D2B0B476A0060134E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,11 +122,12 @@
 		7D23492B2B081C4C00F78D09 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7D724D1B2B0B47220060134E /* Color+.swift */,
 				7D23492C2B081C6300F78D09 /* Date+.swift */,
+				7D6842202B0A762300649F60 /* Font+.swift */,
 				7D2349292B081BFD00F78D09 /* String+.swift */,
 				7D23491F2B08019800F78D09 /* UIApplication+.swift */,
 				7D68421C2B0A73F400649F60 /* UIFont+.swift */,
-				7D6842202B0A762300649F60 /* Font+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				7D23493D2B08254F00F78D09 /* Action.swift */,
+				7D724D1D2B0B476A0060134E /* Colors.swift */,
 				7D23492F2B081D2F00F78D09 /* Event.swift */,
 				7D68421E2B0A743100649F60 /* Fonts.swift */,
 				7D2349312B081D4E00F78D09 /* Listing.swift */,
@@ -342,10 +348,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D23492D2B081C6300F78D09 /* Date+.swift in Sources */,
+				7D724D1C2B0B47220060134E /* Color+.swift in Sources */,
 				7D23493E2B08254F00F78D09 /* Action.swift in Sources */,
 				7D23491E2B07FA8900F78D09 /* AppDelegate.swift in Sources */,
 				7D23493C2B0824FA00F78D09 /* SectionView.swift in Sources */,
 				7D2349262B080F6400F78D09 /* DropDownView.swift in Sources */,
+				7D724D1E2B0B476A0060134E /* Colors.swift in Sources */,
 				7D2349282B08186700F78D09 /* CalendarListView.swift in Sources */,
 				7D2349242B080E7F00F78D09 /* HeaderView.swift in Sources */,
 				7D68421F2B0A743100649F60 /* Fonts.swift in Sources */,

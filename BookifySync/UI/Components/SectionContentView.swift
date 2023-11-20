@@ -37,13 +37,17 @@ struct SectionContentView: View {
                             action: {},
                             sectionTitle: "Listings",
                             width: 150,
-                            height: 100)
+                            height: 100,
+                            backgroundColor: Color.backgroundGray)
+                        .background(Color.backgroundGray)
                         
                         ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
                             SectionView(
                                 action: actions[index],
                                 sectionTitle: section.name,
-                                width: 150)
+                                width: 150,
+                                backgroundColor: Color.backgroundGray)
+                            .background(Color.backgroundGray)
                         }
                     }
                     

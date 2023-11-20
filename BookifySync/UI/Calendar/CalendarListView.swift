@@ -36,7 +36,9 @@ struct CalendarListView: View {
                         .font(.headline)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 4)
+                        .frame(width: width, height: height)
                 }
+                .background(Color.backgroundGray)
                 .frame(width: width, height: height)
                 .border(Color.gray, width: 0.5)
             }
