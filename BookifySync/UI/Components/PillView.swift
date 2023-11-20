@@ -41,9 +41,9 @@ struct PillView: View {
         case "Airbnb":
             return .red
         case "Booking.com":
-            return .blue.opacity(0.8)
+            return .blue
         default:
-            return .green.opacity(0.8)
+            return .green
         }
     }
     

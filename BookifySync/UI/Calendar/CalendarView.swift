@@ -65,11 +65,11 @@ struct CalendarView: View {
                         startDate: startDate
                     )
                     .padding(.leading, 16)
-                    .padding(.bottom, 175)
+                    .padding(.bottom, 200)
                 } else {
-                    CalendarGridView()
+                    CalendarGridView(sectionIndex: viewStore.$filter.wrappedValue.index)
                         .padding(.leading, 16)
-                        .padding(.bottom, 200)
+                        .padding(.bottom, 160)
                 }
             }
         }
