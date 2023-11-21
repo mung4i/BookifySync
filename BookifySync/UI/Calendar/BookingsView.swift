@@ -69,7 +69,7 @@ struct BookingsView: View {
                     GridRow {
                         ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
                             let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
-                            SectionView(action: getActions()[index])
+                            SectionView()
                                 .overlay {
                                     PillView(
                                         action: {
@@ -87,20 +87,6 @@ struct BookingsView: View {
                 }
             }
         }
-    }
-    
-    private func getActions() -> [Action] {
-        var actions: [Action] = []
-        
-        for _ in getDateRange() {
-            actions.append({})
-        }
-        
-        return actions
-    }
-    
-    private func createAction(event: Event) -> Bool {
-        return true
     }
     
     private func getDateRange() -> [Date] {

@@ -16,6 +16,9 @@ struct CalendarGridView: View {
     private let currentDate = Date()
     private let events = Event.examples
     private let sections = Listing.examples
+    private let columns = Array(repeating: GridItem(.fixed(50), spacing: 0, alignment: .top), count: 7)
+    
+    typealias ViewState = ViewStore<CalendarGridReducer.State, CalendarGridReducer.Action>
     
     private let days: [String] = [
         "SAT",
@@ -29,43 +32,44 @@ struct CalendarGridView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                VStack(spacing: 0) {
+            VStack(alignment: .center, spacing: 0) {
+                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                     HStack(spacing: 0) {
                         ForEach(0..<7, id: \.self) { index in
                             CalendarCell(day: days[index])
                         }
                     }
                     
-                    LazyVGrid(
-                        columns: Array(
-                            repeating: GridItem(.fixed(50), spacing: 0),
-                            count: 7),
-                        spacing: 0) {
-                            ForEach(daysInMonth(), id: \.self) { day in
-                                CalendarCell(day: day.formatDate("d"))
-                                    .overlay {
-                                        let index = Int(day.formatDate("d")) ?? 1
-                                        let event = getEvent(
-                                            dateIndex: index,
-                                            sectionIndex: sectionIndex
-                                        )
-                                        PillView(
-                                            action: { viewStore.send(.booking(event)) },
-                                            name: event?.title ?? "",
-                                            width: event?.width ?? 100
-                                        )
-                                        .opacity(event == nil ? 0 : 1)
-                                        .padding(.leading, 50)
-                                        .zIndex(10)
-                                    }
-                            }
-                        }
+                    grid(viewStore)
                 }
+                .frame(maxWidth: .infinity)
             }
+            .padding(.horizontal, 8)
         }
     }
     
+    private func grid(_ store: ViewState) -> some View {
+        LazyVGrid(columns: columns, spacing: 0) {
+            ForEach(daysInMonth(), id: \.self) { day in
+                let index = Int(day.formatDate("d")) ?? 1
+                let event = getEvent(
+                    dateIndex: index,
+                    sectionIndex: sectionIndex
+                )
+                CalendarCell(day: day.formatDate("d"))
+                    .overlay {
+                        if let event {
+                            PillView(
+                                action: { store.send(.booking(event)) },
+                                name: event.title,
+                                width: event.width
+                            )
+                            .padding(.leading, 50)
+                        }
+                    }
+            }
+        }
+    }
     
     private func daysInMonth() -> [Date] {
         guard let monthRange = calendar.range(of: .day, in: .month, for: currentDate) else {
@@ -77,17 +81,18 @@ struct CalendarGridView: View {
         }
     }
     
-    private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
-        events.filter {
-            $0.listing.id == sections[sectionIndex - 1].id &&
-            $0.startDate.formatDate() == getDateRange()[dateIndex].formatDate()
-        }.first
+    private func firstDayOfMonth() -> Date {
+        guard let firstDay = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) else {
+            return currentDate
+        }
+        
+        return firstDay
     }
     
     private func getDateRange() -> [Date] {
         var currentDate = Date()
         var dates: [Date] = []
-        var endDate = Date.advanceDate(component: .year)
+        let endDate = Date.advanceDate(component: .year)
         
         while currentDate <= endDate {
             dates.append(currentDate)
@@ -97,13 +102,11 @@ struct CalendarGridView: View {
         return dates
     }
     
-    // Function to get the first day of the month
-    private func firstDayOfMonth() -> Date {
-        guard let firstDay = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) else {
-            return currentDate
-        }
-        
-        return firstDay
+    private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
+        events.filter {
+            $0.listing.id == sections[sectionIndex - 1].id &&
+            $0.startDate.formatDate() == getDateRange()[dateIndex].formatDate()
+        }.first
     }
 }
 

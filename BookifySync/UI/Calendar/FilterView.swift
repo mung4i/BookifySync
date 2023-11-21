@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct FilterView: View {
+    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             
-            HeaderView(title: "Filter", imageTitle: "cancel", imageDimension: 56)
+            HeaderView(action: { dismiss() }, title: "Filter", imageTitle: "cancel", imageDimension: 56)
             
             Divider()
                 .padding(.horizontal, 16)
@@ -33,11 +36,11 @@ struct FilterView: View {
                 .padding(.horizontal, 16)
             
             HStack(alignment: .center) {
-                PrimaryButton(action: {}, title: "Clear", isPrimary: false)
+                PrimaryButton(action: { dismiss() }, title: "Clear", isPrimary: false)
                 
                 Spacer()
                 
-                PrimaryButton(action: {}, title: "Apply", isPrimary: true)
+                PrimaryButton(action: { dismiss() }, title: "Apply", isPrimary: true)
             }
             .padding(.horizontal, 16)
         }

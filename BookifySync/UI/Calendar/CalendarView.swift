@@ -44,10 +44,16 @@ struct CalendarView: View {
         }
     }
     
+    @State var showFilterView: Bool = false
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 16) {
-                HeaderView(title: "Calendar", imageTitle: "filter")
+                if $showFilterView.wrappedValue {
+                    NavigationLink(destination: FilterView(), isActive: $showFilterView) { EmptyView() }
+                }
+                
+                HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
                     .padding(.top, 32)
                 
                 IfLetStore(
