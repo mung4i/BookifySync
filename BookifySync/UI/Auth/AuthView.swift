@@ -20,11 +20,14 @@ struct AuthView: View {
     @State private var showNextView = false
     
     var body: some View {
-        if showNextView {
+        NavigationView {
             VStack(
                 alignment: .leading,
                 spacing: 16
             ) {
+                if $showNextView.wrappedValue {
+                    NavigationLink(destination: CalendarView(), isActive: $showNextView) { EmptyView() }
+                }
                 
                 AuthHeaderView()
                     .padding(.top, 64)
@@ -37,9 +40,10 @@ struct AuthView: View {
                 
             }
             .padding(.horizontal, 16)
-        }
-        else {
-            CalendarView()
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden()
+            .navigationViewStyle(.stack)
         }
     }
     

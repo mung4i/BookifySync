@@ -15,8 +15,10 @@ struct CalendarView: View {
         startDate: Date = Date(),
         store: StoreOf<CalendarReducer> = Store(
             initialState: CalendarReducer.State(
-                calendars: .mock,
-                dropdown: DropdownReducer.mock)
+                calendars: CalendarGridReducer.State(filter: .all),
+                dropdown: DropdownReducer.mock,
+                booking: BookingsReducer.State(event: nil)
+            )
         ) {
             CalendarReducer()._printChanges()
         }
@@ -34,9 +36,11 @@ struct CalendarView: View {
     
     struct ViewState: Equatable {
         @BindingViewState var filter: FilterKey
+        @BindingViewState var event: Event?
         
         init(store: BindingViewStore<CalendarReducer.State>) {
             self._filter = store.$filter
+            self._event = store.$event
         }
     }
     
@@ -59,20 +63,44 @@ struct CalendarView: View {
                 }
                 
                 if viewStore.$filter.wrappedValue == .all {
-                    BookingsView(
-                        actions: actions,
-                        endDate: endDate,
-                        startDate: startDate
-                    )
-                    .padding(.leading, 16)
-                    .padding(.bottom, 200)
+                    IfLetStore(
+                        self.store.scope(
+                            state: \.booking,
+                            action: { .booking($0) }
+                        )
+                    ) { store in
+                        BookingsView(store: store)
+                            .padding(.leading, 16)
+                            .padding(.bottom, 200)
+                    }
                 } else {
-                    CalendarGridView(sectionIndex: viewStore.$filter.wrappedValue.index)
+                    IfLetStore(
+                        self.store.scope(
+                            state: \.calendars,
+                            action: { .showCalendarView($0) }
+                        )
+                    ) { store in
+                        CalendarGridView(
+                            sectionIndex: viewStore.$filter.wrappedValue.index,
+                            store: store
+                        )
                         .padding(.leading, 16)
                         .padding(.bottom, 160)
+                    }
                 }
             }
+            .overlay {
+                if let event = viewStore.$event.wrappedValue {
+                    ListingView(
+                        action: { viewStore.send(.booking(.showBooking(nil))) },
+                        traveler: Traveler(name: event.title, event: event)
+                    )
+                    .background(.white)
+                }
+            }
+            .navigationBarBackButtonHidden()
         }
+
     }
 }
 

@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct ListingView: View {
+    init(
+        action: @escaping Action = {},
+        traveler: Traveler
+    ) {
+        self.action = action
+        self.traveler = traveler
+    }
+    
+    let action: Action
     let traveler: Traveler
 
     var body: some View {
@@ -22,14 +31,28 @@ struct ListingView: View {
             TravelerDetailsCard(traveler: traveler)
             
         }
+        .background(.white)
         .padding(.all, 16)
         .frame(width: 330, height: 389)
-        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
-        .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
+//        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
+//        .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
         .cornerRadius(8)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.gray.opacity(0.1))
+        }
+        .overlay {
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: action) {
+                        Image("cancel", bundle: .main)
+                    }
+                }
+                .padding([.top, .trailing], -16)
+                
+                Spacer()
+            }
         }
     }
 }

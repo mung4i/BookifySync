@@ -5,10 +5,13 @@
 //  Created by Martin Mungai on 20/11/2023.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct CalendarGridView: View {
     let sectionIndex: Int
+    let store: StoreOf<CalendarGridReducer>
+    
     private let calendar = Calendar.current
     private let currentDate = Date()
     private let events = Event.examples
@@ -25,37 +28,40 @@ struct CalendarGridView: View {
     ]
     
     var body: some View {
-        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-            VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    ForEach(0..<7, id: \.self) { index in
-                        CalendarCell(day: days[index])
-                    }
-                }
-                
-                LazyVGrid(
-                    columns: Array(
-                        repeating: GridItem(.fixed(50), spacing: 0),
-                        count: 7),
-                    spacing: 0) {
-                        ForEach(daysInMonth(), id: \.self) { day in
-                            CalendarCell(day: day.formatDate("d"))
-                                .overlay {
-                                    let index = Int(day.formatDate("d")) ?? 1
-                                    let event = getEvent(
-                                        dateIndex: index,
-                                        sectionIndex: sectionIndex
-                                    )
-                                    PillView(
-                                        name: event?.title ?? "",
-                                        width: event?.width ?? 100
-                                    )
-                                    .opacity(event == nil ? 0 : 1)
-                                    .padding(.leading, 50)
-                                    .zIndex(10)
-                                }
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        ForEach(0..<7, id: \.self) { index in
+                            CalendarCell(day: days[index])
                         }
                     }
+                    
+                    LazyVGrid(
+                        columns: Array(
+                            repeating: GridItem(.fixed(50), spacing: 0),
+                            count: 7),
+                        spacing: 0) {
+                            ForEach(daysInMonth(), id: \.self) { day in
+                                CalendarCell(day: day.formatDate("d"))
+                                    .overlay {
+                                        let index = Int(day.formatDate("d")) ?? 1
+                                        let event = getEvent(
+                                            dateIndex: index,
+                                            sectionIndex: sectionIndex
+                                        )
+                                        PillView(
+                                            action: { viewStore.send(.booking(event)) },
+                                            name: event?.title ?? "",
+                                            width: event?.width ?? 100
+                                        )
+                                        .opacity(event == nil ? 0 : 1)
+                                        .padding(.leading, 50)
+                                        .zIndex(10)
+                                    }
+                            }
+                        }
+                }
             }
         }
     }
@@ -102,5 +108,10 @@ struct CalendarGridView: View {
 }
 
 #Preview {
-    CalendarGridView(sectionIndex: 1)
+    CalendarGridView(
+        sectionIndex: 1,
+        store: Store(
+            initialState: CalendarGridReducer.State(filter: .all)) {
+                CalendarGridReducer()._printChanges()
+            })
 }

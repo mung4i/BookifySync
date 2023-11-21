@@ -30,6 +30,7 @@
 		7D4E81A12B07CA65004B9B3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A02B07CA65004B9B3C /* Persistence.swift */; };
 		7D4E81A42B07CA65004B9B3C /* BookifySync.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */; };
 		7D4E81AC2B07D0CA004B9B3C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */; };
+		7D5F1C792B0C314000E916B8 /* BookingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F1C782B0C314000E916B8 /* BookingsReducer.swift */; };
 		7D68420A2B0A723700649F60 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D6841F82B0A723600649F60 /* Poppins-Black.ttf */; };
 		7D68420B2B0A723700649F60 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D6841F92B0A723600649F60 /* Poppins-Bold.ttf */; };
 		7D68420C2B0A723700649F60 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D6841FA2B0A723600649F60 /* Poppins-ThinItalic.ttf */; };
@@ -94,6 +95,7 @@
 		7D4E819B2B07CA65004B9B3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D4E81A02B07CA65004B9B3C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		7D4E81A32B07CA65004B9B3C /* BookifySync.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookifySync.xcdatamodel; sourceTree = "<group>"; };
+		7D5F1C782B0C314000E916B8 /* BookingsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsReducer.swift; sourceTree = "<group>"; };
 		7D6841F82B0A723600649F60 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
 		7D6841F92B0A723600649F60 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		7D6841FA2B0A723600649F60 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		7D724D282B0B55A70060134E /* Reducer */ = {
 			isa = PBXGroup;
 			children = (
+				7D5F1C782B0C314000E916B8 /* BookingsReducer.swift */,
 				7D724D202B0B4CEB0060134E /* CalendarReducer.swift */,
 				7DE0D2CE2B0B764A002AA0E7 /* CalendarGridReducer.swift */,
 				7DE0D2C82B0B57D4002AA0E7 /* DropdownReducer.swift */,
@@ -440,6 +443,7 @@
 				7D2349282B08186700F78D09 /* CalendarListView.swift in Sources */,
 				7DE0D2D52B0BB7A4002AA0E7 /* FilterView.swift in Sources */,
 				7D2349242B080E7F00F78D09 /* HeaderView.swift in Sources */,
+				7D5F1C792B0C314000E916B8 /* BookingsReducer.swift in Sources */,
 				7D724D212B0B4CEB0060134E /* CalendarReducer.swift in Sources */,
 				7DE0D2D32B0B79FE002AA0E7 /* TravelerReducer.swift in Sources */,
 				7D68421F2B0A743100649F60 /* Fonts.swift in Sources */,
