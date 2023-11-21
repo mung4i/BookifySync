@@ -5,28 +5,20 @@
 //  Created by Martin Mungai on 18/11/2023.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
-struct SectionContentView: View {
-    init(
-        actions: [Action] = generateActions(count: Listing.examples.count),
-        endDate: Date = Date.advanceDate(component: .year),
-        sections: [Listing] = Listing.examples,
-        startDate: Date = Date()
-    ) {
-        self.actions = actions
-        self.endDate = endDate
-        self.sections = sections
-        self.startDate = startDate
-    }
+struct BookingsView: View {
     
-    let actions: [Action]
-    let endDate: Date
-    let sections: [Listing]
-    let startDate: Date
+    let actions: [Action] = generateActions(count: Listing.examples.count)
+    let endDate: Date = Date.advanceDate(component: .year)
+    let sections: [Listing] = Listing.examples
+    let startDate: Date = Date()
+    
+    let store: StoreOf<BookingsReducer>
             
     @State var events: [Event] = Event.examples
-    @State var ids: [UUID] = []
+    @State var showListing: Bool = false
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -34,7 +26,6 @@ struct SectionContentView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
                         SectionView(
-                            action: {},
                             sectionTitle: "Listings",
                             width: 150,
                             height: 100,
@@ -72,31 +63,30 @@ struct SectionContentView: View {
     }
     
     private func grid() -> some View {
-        ForEach(Array(sections.enumerated()), id: \.offset) { sectionIndex, _ in
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                GridRow {
-                    ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
-                        SectionView(action: getActions()[index])
-                            .overlay {
-                                let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
-                                PillView(name: event?.title ?? "", width: event?.width ?? 100)
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            ForEach(Array(sections.enumerated()), id: \.offset) { sectionIndex, _ in
+                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                    GridRow {
+                        ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
+                            let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
+                            SectionView()
+                                .overlay {
+                                    PillView(
+                                        action: {
+                                            viewStore.send(.showBooking(event))
+                                        },
+                                        name: event?.title ?? "",
+                                        width: event?.width ?? 100
+                                    )
                                     .opacity(event == nil ? 0 : 1)
                                     .padding(.leading, 150)
-                            }
+                                }
+                        }
+                        
                     }
                 }
             }
         }
-    }
-    
-    private func getActions() -> [Action] {
-        var actions: [Action] = []
-        
-        for _ in getDateRange() {
-            actions.append({})
-        }
-        
-        return actions
     }
     
     private func getDateRange() -> [Date] {
@@ -120,5 +110,7 @@ struct SectionContentView: View {
 }
 
 #Preview {
-    SectionContentView()
+    BookingsView(store: Store(initialState: BookingsReducer.State(event: nil)) {
+        BookingsReducer()._printChanges()
+    })
 }

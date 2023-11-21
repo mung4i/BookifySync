@@ -13,9 +13,6 @@ import GoogleSignIn
 struct BookifySyncApp: App {
     let persistenceController = PersistenceController.shared
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self)
-    var appDelegate
-    
     init() {
         Fonts.registerFonts()
     }
@@ -27,9 +24,9 @@ struct BookifySyncApp: App {
                 .onAppear {
                     GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
                         if error != nil || user == nil {
-                            // sign out state
+                            
                         } else {
-                            // sign in state
+                            
                         }
                     }
                 }
