@@ -45,66 +45,106 @@ struct CalendarView: View {
     }
     
     @State var showFilterView: Bool = false
+    @State private var selectedTab: Int = 2
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 16) {
-                if $showFilterView.wrappedValue {
-                    NavigationLink(destination: FilterView(), isActive: $showFilterView) { EmptyView() }
-                }
-                
-                HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
-                    .padding(.top, 32)
-                
-                IfLetStore(
-                    self.store.scope(
-                        state: \.dropdown,
-                        action: { .dropdown($0) }
-                    )
-                ) { store in
-                    DropDownView(store: store)
-                        .frame(width: 280)
-                        .opacity(1)
-                        .zIndex(10)
-                }
-                
-                if viewStore.$filter.wrappedValue == .all {
-                    IfLetStore(
-                        self.store.scope(
-                            state: \.booking,
-                            action: { .booking($0) }
-                        )
-                    ) { store in
-                        BookingsView(store: store)
-                            .padding(.leading, 16)
-                            .padding(.bottom, 200)
+            TabView(selection: $selectedTab) {
+                Text("Messages")
+                    .tabItem {
+                        Image("messages")
+                        Text("Messages")
                     }
-                } else {
-                    IfLetStore(
-                        self.store.scope(
-                            state: \.calendars,
-                            action: { .showCalendarView($0) }
-                        )
-                    ) { store in
-                        CalendarGridView(
-                            sectionIndex: viewStore.$filter.wrappedValue.index,
-                            store: store
-                        )
-                        .padding(.leading, 16)
-                        .padding(.bottom, 160)
+                
+                Text("Offers")
+                    .tabItem {
+                        Image("gift")
+                        Text("Offers")
                     }
+                
+                NavigationView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        if $showFilterView.wrappedValue {
+                            NavigationLink(destination: FilterView(), isActive: $showFilterView) { EmptyView() }
+                        }
+                        
+                        HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
+                            .padding(.top, 32)
+                        
+                        IfLetStore(
+                            self.store.scope(
+                                state: \.dropdown,
+                                action: { .dropdown($0) }
+                            )
+                        ) { store in
+                            DropDownView(store: store)
+                                .frame(width: 280)
+                                .opacity(1)
+                                .zIndex(10)
+                        }
+                        
+                        if viewStore.$filter.wrappedValue == .all {
+                            IfLetStore(
+                                self.store.scope(
+                                    state: \.booking,
+                                    action: { .booking($0) }
+                                )
+                            ) { store in
+                                BookingsView(store: store)
+                                    .padding(.leading, 16)
+                                    .padding(.bottom, 100)
+                            }
+                        } else {
+                            IfLetStore(
+                                self.store.scope(
+                                    state: \.calendars,
+                                    action: { .showCalendarView($0) }
+                                )
+                            ) { store in
+                                CalendarGridView(
+                                    sectionIndex: viewStore.$filter.wrappedValue.index,
+                                    store: store
+                                )
+                                .padding(.leading, 16)
+                                .padding(.bottom, 100)
+                            }
+                        }
+                    }
+                    .overlay {
+                        if let event = viewStore.$event.wrappedValue {
+                            ListingView(
+                                action: { viewStore.send(.booking(.showBooking(nil))) },
+                                traveler: Traveler(name: event.title, event: event)
+                            )
+                            .background(.white)
+                        }
+                    }
+                    .navigationBarBackButtonHidden()
                 }
-            }
-            .overlay {
-                if let event = viewStore.$event.wrappedValue {
-                    ListingView(
-                        action: { viewStore.send(.booking(.showBooking(nil))) },
-                        traveler: Traveler(name: event.title, event: event)
-                    )
-                    .background(.white)
+                .tabItem {
+                    Image("calendar")
+                    Text("Calendar")
+                        .font(.headingRegular)
                 }
+                
+                Text("Bookings")
+                    .tabItem {
+                        Image("bookings")
+                        Text("Bookings")
+                            .font(.headingRegular)
+                    }
+                
+                Text("Menu")
+                    .tabItem {
+                        Image("menu")
+                        Text("Menu")
+                            .font(.headingRegular)
+                    }
             }
+            .accentColor(.primaryRed)
             .navigationBarBackButtonHidden()
+        }.onAppear {
+            selectedTab = 2
         }
 
     }

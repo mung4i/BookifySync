@@ -31,7 +31,6 @@ struct TravelerDetailsCard: View {
                 VStack(alignment: .center, spacing: 8) {
                     Text("Check in:")
                         .font(.body2)
-                        .frame(width: .infinity)
                     
                     CheckOutView(date: traveler.event.startDate)
                 }
@@ -77,7 +76,6 @@ struct CheckOutView: View {
             
             Text(date.formatDateWithoutNewline("d MMM yyyy"))
                 .font(.body3)
-                .frame(width: .infinity)
         }
     }
 }

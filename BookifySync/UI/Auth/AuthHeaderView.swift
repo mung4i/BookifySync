@@ -15,11 +15,11 @@ struct AuthHeaderView: View {
         ) {
             
             Text("BookifySync ")
-                .font(.largeTitle)
+                .font(.large)
                 .bold()
             
             Text("Sign in to schedule events from all your favorite booking platforms!")
-                .font(.title3)
+                .font(.body1)
         }
     }
 }
