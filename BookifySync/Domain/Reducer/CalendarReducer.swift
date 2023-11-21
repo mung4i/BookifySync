@@ -12,14 +12,17 @@ import ComposableArchitecture
 struct CalendarReducer {
     enum Action {
         case dropdown(DropdownReducer.Action)
-        case showCalendarView(IdentifiedActionOf<CalendarGridReducer>)
+        case showCalendarView(CalendarGridReducer.Action)
+        case booking(BookingsReducer.Action)
     }
     
     struct State: Equatable {
         @BindingState var filter: FilterKey = .all
+        @BindingState var event: Event?
         
-        var calendars: IdentifiedArrayOf<CalendarGridReducer.State> = []
+        var calendars: CalendarGridReducer.State?
         var dropdown: DropdownReducer.State?
+        var booking: BookingsReducer.State?
     }
     
     var body: some Reducer<State, Action> {
@@ -30,14 +33,21 @@ struct CalendarReducer {
                 state.filter = filter
                 return .none
                 
-            case .showCalendarView(.element(_, _)):
+            case let .showCalendarView(.booking(event)):
+                state.event = event
+                return .none
+                
+            case let .booking(.showBooking(event)):
+                state.event = event
+                return .none
+                
+            case .showCalendarView(.showCalendarGrid(_)):
                 return .none
             }
         }
-        .forEach(\.calendars, action: \.showCalendarView) {
-            CalendarGridReducer()
-        }
     }
 }
+
+
 
 
