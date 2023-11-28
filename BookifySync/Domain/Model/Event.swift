@@ -15,10 +15,46 @@ struct Event: Hashable {
     let listing: Listing
 }
 
+extension Date {
+    func toDay() -> Int {
+        self
+            .formatDate("d")
+            .toInt()
+    }
+    
+    func toNumber(format: String = "MM") -> Int {
+        self
+            .formatDate(format)
+            .toInt()
+    }
+}
+
+private extension String {
+    func toInt() -> Int {
+        Int(self) ?? 1
+    }
+}
+
 extension Event {
+    private var difference: Int {
+        let start = startDate.toDay()
+        let end = endDate.toDay()
+        return end - start
+    }
+    
     var width: CGFloat {
-        var days = (Int(endDate.formatDate("d")) ?? 1) - (Int(startDate.formatDate("d")) ?? 1)
-        return CGFloat(50 * days)
+        return CGFloat(difference <= 0  ? 150 : 50 * difference)
+    }
+    
+    var gridWidth: CGFloat {
+        return CGFloat(difference <= 0  ? 75 : 50 * difference)
+    }
+    
+    func showEvent(date: Date) -> Bool {
+        if (date.toDay() >= startDate.toDay()) || (date.toDay() <= endDate.toDay()) {
+            return true
+        }
+        return false
     }
 }
 
