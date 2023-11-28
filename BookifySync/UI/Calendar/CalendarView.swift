@@ -33,9 +33,8 @@ struct CalendarView: View {
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             NavigationView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 0) {
                     HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
-                        .padding(.top, 32)
                     
                     if $showFilterView.wrappedValue {
                         NavigationLink(
@@ -49,46 +48,37 @@ struct CalendarView: View {
                         { EmptyView() }
                     }
                     
-                    IfLetStore(
-                        self.store.scope(
-                            state: \.dropdown,
-                            action: { .dropdown($0) }
-                        )
-                    ) { store in
-                        DropDownView(store: store)
-                            .padding(.top, 16)
-                            .frame(width: 280)
-                            .opacity(1)
-                            .zIndex(10)
-                    }
+                    Spacer()
+                        .frame(maxHeight: 16)
                     
-                    VStack(spacing: 0) {
-                        if let filter = viewStore.filter {
-                            if filter == .all {
-                                IfLetStore(
-                                    self.store.scope(
-                                        state: \.booking,
-                                        action: { .booking($0) }
-                                    )
-                                ) { store in
-                                    CalendarBookingsView(store: store)
-                                }
-                            } else {
-                                IfLetStore(
-                                    self.store.scope(
-                                        state: \.calendars,
-                                        action: { .showCalendarView($0) }
-                                    )
-                                ) { store in
-                                    CalendarGridView(
-                                        sectionIndex: filter.index,
-                                        store: store
-                                    )
-                                }
+                    Spacer()
+                        .frame(maxHeight: 16)
+                    
+                    if let filter = viewStore.filter {
+                        if filter == .all {
+                            IfLetStore(
+                                self.store.scope(
+                                    state: \.booking,
+                                    action: { .booking($0) }
+                                )
+                            ) { store in
+                                CalendarBookingsView(store: store)
+                                    .padding(.leading, 16)
+                            }
+                        } else {
+                            IfLetStore(
+                                self.store.scope(
+                                    state: \.calendars,
+                                    action: { .showCalendarView($0) }
+                                )
+                            ) { store in
+                                CalendarGridView(
+                                    sectionIndex: filter.index,
+                                    store: store
+                                )
                             }
                         }
                     }
-                    .padding(.leading, 16)
                     
                     
                     Spacer()
@@ -107,9 +97,6 @@ struct CalendarView: View {
                 }
                 .navigationBarBackButtonHidden()
             }
-            .tabItem(
-                imageTitle: "calendar",
-                title: "Calendar")
         }
     }
 }

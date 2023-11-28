@@ -47,31 +47,54 @@ struct CalendarGridView: View {
     
     
     var body: some View {
-        VStack(spacing: .zero) {
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                HStack(spacing: 0) {
-                    ForEach(0..<7, id: \.self) { index in
-                        let date = getDates()[index]
-                        CalendarCell(day: date.formatDate("E"))
-                    }
+        VStack(alignment: .leading, spacing: .zero) {
+            WithViewStore(self.store, observe: { $0 }) { viewStore in
+                IfLetStore(
+                    self.store.scope(
+                        state: \.dropDown,
+                        action: { .dropdown($0)})
+                ) { store in
+                    DropDownView(store: store)
+                        .padding(.top, 16)
+                        .frame(width: 280)
+                        .opacity(1)
+                        .zIndex(10)
                 }
             }
             
-            LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(getDates(), id: \.self) { date in
-                    let event = getEvent(
-                        dateIndex: date.toDay() - 1,
-                        sectionIndex: sectionIndex
-                    )
-                    
-                    HStack(spacing: 0) {
-                        calendarCellBuilder(
-                            date: date,
-                            for: event)
-                    }
+            VStack(spacing: .zero) {
+                upperGrid()
+                lowerGrid()
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+    
+    private func lowerGrid() -> some View {
+        LazyVGrid(columns: columns, spacing: 0) {
+            ForEach(getDates(), id: \.self) { date in
+                let event = getEvent(
+                    dateIndex: date.toDay() - 1,
+                    sectionIndex: sectionIndex
+                )
+                
+                HStack(spacing: 0) {
+                    calendarCellBuilder(
+                        date: date,
+                        for: event)
                 }
             }
-            .clipped()
+        }
+    }
+    
+    private func upperGrid() -> some View {
+        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+            HStack(spacing: 0) {
+                ForEach(0..<7, id: \.self) { index in
+                    let date = getDates()[index]
+                    CalendarCell(day: date.formatDate("E"))
+                }
+            }
         }
     }
     

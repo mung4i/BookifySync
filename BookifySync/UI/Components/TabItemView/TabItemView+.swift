@@ -10,10 +10,12 @@ import SwiftUI
 extension View {
     func tabItem(
         imageTitle: String,
+        isSelected: Bool = false,
         title: String
     ) -> some View {
         modifier(TabItemViewModifier(
             imageTitle: imageTitle,
+            isSelected: isSelected,
             title: title))
     }
 }

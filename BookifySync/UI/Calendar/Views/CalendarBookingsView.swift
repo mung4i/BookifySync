@@ -20,6 +20,28 @@ struct CalendarBookingsView: View {
     @State var showListing: Bool = false
     
     var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                IfLetStore(
+                    self.store.scope(
+                        state: \.dropdown,
+                        action: { .dropdown($0) }
+                    )
+                ) { store in
+                    DropDownView(store: store)
+                        .padding(.top, 16)
+                        .frame(width: 280)
+                        .opacity(1)
+                        .zIndex(10)
+                    
+                }
+                
+                outerGrid()
+            }
+        }
+    }
+    
+    private func outerGrid() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                 HStack(spacing: 0) {

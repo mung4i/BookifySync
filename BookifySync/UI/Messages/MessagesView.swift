@@ -10,9 +10,6 @@ import SwiftUI
 struct MessagesView: View {
     var body: some View {
         Text("Messages")
-            .tabItem(
-                imageTitle: "messages",
-                title: "Messages")
     }
 }
 

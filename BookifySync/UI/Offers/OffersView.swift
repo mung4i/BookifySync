@@ -10,9 +10,6 @@ import SwiftUI
 struct OffersView: View {
     var body: some View {
         Text("Offers")
-            .tabItem(
-                imageTitle: "gift",
-                title: "Offers")
     }
 }
 
