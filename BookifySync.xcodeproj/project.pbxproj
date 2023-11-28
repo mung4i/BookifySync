@@ -53,6 +53,11 @@
 		7D68421F2B0A743100649F60 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D68421E2B0A743100649F60 /* Fonts.swift */; };
 		7D6842212B0A762300649F60 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6842202B0A762300649F60 /* Font+.swift */; };
 		7D6842232B0A7E9B00649F60 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6842222B0A7E9B00649F60 /* PillView.swift */; };
+		7D7212032B15065C001DD8D5 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7212022B15065C001DD8D5 /* TabItemView.swift */; };
+		7D7212052B150696001DD8D5 /* TabItemViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7212042B150696001DD8D5 /* TabItemViewModifier.swift */; };
+		7D7212072B1506B6001DD8D5 /* TabItemView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7212062B1506B6001DD8D5 /* TabItemView+.swift */; };
+		7D72120A2B15263B001DD8D5 /* PillViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7212092B15263B001DD8D5 /* PillViewModifier.swift */; };
+		7D72120D2B152665001DD8D5 /* PillView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72120C2B152665001DD8D5 /* PillView+.swift */; };
 		7D724D1C2B0B47220060134E /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D724D1B2B0B47220060134E /* Color+.swift */; };
 		7D724D1E2B0B476A0060134E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D724D1D2B0B476A0060134E /* Colors.swift */; };
 		7D724D212B0B4CEB0060134E /* CalendarReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D724D202B0B4CEB0060134E /* CalendarReducer.swift */; };
@@ -118,6 +123,11 @@
 		7D68421E2B0A743100649F60 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7D6842202B0A762300649F60 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		7D6842222B0A7E9B00649F60 /* PillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
+		7D7212022B15065C001DD8D5 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
+		7D7212042B150696001DD8D5 /* TabItemViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemViewModifier.swift; sourceTree = "<group>"; };
+		7D7212062B1506B6001DD8D5 /* TabItemView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabItemView+.swift"; sourceTree = "<group>"; };
+		7D7212092B15263B001DD8D5 /* PillViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillViewModifier.swift; sourceTree = "<group>"; };
+		7D72120C2B152665001DD8D5 /* PillView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PillView+.swift"; sourceTree = "<group>"; };
 		7D724D1B2B0B47220060134E /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7D724D1D2B0B476A0060134E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7D724D202B0B4CEB0060134E /* CalendarReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarReducer.swift; sourceTree = "<group>"; };
@@ -177,10 +187,11 @@
 		7D2349332B081D7A00F78D09 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7D72120B2B15264F001DD8D5 /* PillView */,
+				7D7212082B1506CA001DD8D5 /* TabItemView */,
 				7DE0D2CC2B0B7552002AA0E7 /* CalendarCell.swift */,
 				7DE0D2D62B0BBE9B002AA0E7 /* Checkbox.swift */,
 				7D2349232B080E7F00F78D09 /* HeaderView.swift */,
-				7D6842222B0A7E9B00649F60 /* PillView.swift */,
 				7DE0D2D82B0BC26E002AA0E7 /* PrimaryButton.swift */,
 				7D23493B2B0824FA00F78D09 /* SectionView.swift */,
 				7DE0D2DE2B0BC7D1002AA0E7 /* TravelerCard.swift */,
@@ -286,6 +297,26 @@
 				7D6841FA2B0A723600649F60 /* Poppins-ThinItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7D7212082B1506CA001DD8D5 /* TabItemView */ = {
+			isa = PBXGroup;
+			children = (
+				7D7212022B15065C001DD8D5 /* TabItemView.swift */,
+				7D7212062B1506B6001DD8D5 /* TabItemView+.swift */,
+				7D7212042B150696001DD8D5 /* TabItemViewModifier.swift */,
+			);
+			path = TabItemView;
+			sourceTree = "<group>";
+		};
+		7D72120B2B15264F001DD8D5 /* PillView */ = {
+			isa = PBXGroup;
+			children = (
+				7D6842222B0A7E9B00649F60 /* PillView.swift */,
+				7D72120C2B152665001DD8D5 /* PillView+.swift */,
+				7D7212092B15263B001DD8D5 /* PillViewModifier.swift */,
+			);
+			path = PillView;
 			sourceTree = "<group>";
 		};
 		7D724D1F2B0B4CD50060134E /* Views */ = {
@@ -428,10 +459,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D23492D2B081C6300F78D09 /* Date+.swift in Sources */,
+				7D72120D2B152665001DD8D5 /* PillView+.swift in Sources */,
 				7DE0D2E12B0BCD80002AA0E7 /* TravelerDetailsCard.swift in Sources */,
 				7D724D1C2B0B47220060134E /* Color+.swift in Sources */,
 				7D23493E2B08254F00F78D09 /* Action.swift in Sources */,
 				7D23491E2B07FA8900F78D09 /* AppDelegate.swift in Sources */,
+				7D7212072B1506B6001DD8D5 /* TabItemView+.swift in Sources */,
+				7D72120A2B15263B001DD8D5 /* PillViewModifier.swift in Sources */,
 				7DE0D2D72B0BBE9B002AA0E7 /* Checkbox.swift in Sources */,
 				7D23493C2B0824FA00F78D09 /* SectionView.swift in Sources */,
 				7D2349262B080F6400F78D09 /* DropDownView.swift in Sources */,
@@ -442,6 +476,7 @@
 				7DE0D2DB2B0BC540002AA0E7 /* Platforms.swift in Sources */,
 				7D2349282B08186700F78D09 /* CalendarListView.swift in Sources */,
 				7DE0D2D52B0BB7A4002AA0E7 /* FilterView.swift in Sources */,
+				7D7212032B15065C001DD8D5 /* TabItemView.swift in Sources */,
 				7D2349242B080E7F00F78D09 /* HeaderView.swift in Sources */,
 				7D5F1C792B0C314000E916B8 /* BookingsReducer.swift in Sources */,
 				7D724D212B0B4CEB0060134E /* CalendarReducer.swift in Sources */,
@@ -467,6 +502,7 @@
 				7D2349302B081D2F00F78D09 /* Event.swift in Sources */,
 				7D4E81982B07CA63004B9B3C /* BookifySyncApp.swift in Sources */,
 				7DE0D2CF2B0B764A002AA0E7 /* CalendarGridReducer.swift in Sources */,
+				7D7212052B150696001DD8D5 /* TabItemViewModifier.swift in Sources */,
 				7DE0D2C92B0B57D4002AA0E7 /* DropdownReducer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
