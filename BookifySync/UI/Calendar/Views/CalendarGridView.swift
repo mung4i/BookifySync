@@ -47,26 +47,29 @@ struct CalendarGridView: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: .zero) {
-            WithViewStore(self.store, observe: { $0 }) { viewStore in
-                IfLetStore(
-                    self.store.scope(
-                        state: \.dropDown,
-                        action: { .dropdown($0)})
-                ) { store in
-                    DropDownView(store: store)
-                        .padding(.top, 16)
-                        .frame(width: 280)
-                        .opacity(1)
-                        .zIndex(10)
-                }
+        VStack(alignment: .leading, spacing: 16) {
+            IfLetStore(
+                self.store.scope(
+                    state: \.dropDown,
+                    action: { .dropdown($0)})
+            ) { store in
+                DropDownView(store: store)
+                    .padding(.top, 16)
+                    .frame(width: 280, height: 44)
+                    .opacity(1)
+                    .zIndex(10)
             }
+            
+            Spacer()
+                .frame(maxHeight: 32)
             
             VStack(spacing: .zero) {
                 upperGrid()
                 lowerGrid()
             }
             .padding(.horizontal, 16)
+            
+            Spacer()
         }
     }
     

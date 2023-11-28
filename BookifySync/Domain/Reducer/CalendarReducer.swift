@@ -12,10 +12,10 @@ import Foundation
 struct CalendarReducer {
     enum Action: BindableAction {
         case binding(BindingAction<State>)
-        case showCalendarView(CalendarGridReducer.Action)
         case booking(BookingsReducer.Action)
-        case toggleFilters(FilterReducer.Action)
         case setFilterState(FilterKey)
+        case showCalendarView(CalendarGridReducer.Action)
+        case toggleFilters(FilterReducer.Action)
     }
     
     struct State: Equatable {
@@ -72,10 +72,6 @@ struct CalendarReducer {
                 
             case .toggleFilters(.clear):
                 return .none
-                
-
-                
-
             }
         }
         .ifLet(\.filterPlatforms, action: \.toggleFilters) {

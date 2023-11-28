@@ -32,7 +32,7 @@ struct CalendarView: View {
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             NavigationView {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 16) {
                     HeaderView(
                         action: { showFilterView.toggle() },
                         title: "Calendar",

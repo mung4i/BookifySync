@@ -29,13 +29,24 @@ struct CalendarBookingsView: View {
             ) { store in
                 DropDownView(store: store)
                     .padding(.top, 16)
-                    .frame(width: 280)
+                    .frame(width: 280, height: 44)
                     .opacity(1)
                     .zIndex(10)
                 
             }
             
+            Spacer()
+                .frame(maxHeight: 32)
+                        
             outerGrid()
+            
+            Spacer()
+        }
+    }
+    
+    private func grid() -> some View {
+        ForEach(0..<sections.count, id: \.self) { sectionIndex in
+            innerGrid(sectionIndex)
         }
     }
     
@@ -81,11 +92,7 @@ struct CalendarBookingsView: View {
         }
     }
     
-    private func grid() -> some View {
-        ForEach(0..<sections.count, id: \.self) { sectionIndex in
-            innerGrid(sectionIndex)
-        }
-    }
+
     
     private func innerGrid(_ sectionIndex: Int) -> some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
