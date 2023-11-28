@@ -6,12 +6,12 @@
 //
 
 import ComposableArchitecture
+import Foundation
 
 @Reducer
 struct CalendarReducer {
     enum Action: BindableAction {
         case binding(BindingAction<State>)
-        case dropdown(DropdownReducer.Action)
         case showCalendarView(CalendarGridReducer.Action)
         case booking(BookingsReducer.Action)
         case toggleFilters(FilterReducer.Action)
@@ -26,7 +26,6 @@ struct CalendarReducer {
             .map { $0 }
         
         var calendars: CalendarGridReducer.State?
-        var dropdown: DropdownReducer.State?
         var booking: BookingsReducer.State?
         var filterPlatforms: FilterReducer.State?
     }
@@ -38,20 +37,30 @@ struct CalendarReducer {
             case .binding:
                 return .none
                 
+            case let .booking(.dropdown(.filterTapped(filter))):
+                state.filter = filter
+                if filter != .all {
+                    state.calendars?.dropDown = .init(filter: filter, id: .init())
+                }
+                return .none
+                
             case let .booking(.showBooking(event)):
                 state.event = event
                 return .none
                 
-            case let .dropdown(.filterTapped(filter)):
-                state.filter = filter
-                return .none
-                
             case let .setFilterState(key):
                 state.filter = key
+                state.booking = .init(
+                    dropdown: .init(filter: key, id: .init())
+                )
                 return .none
                 
             case let .showCalendarView(.booking(event)):
                 state.event = event
+                return .none
+                
+            case let .showCalendarView(.dropdown(.filterTapped(filter))):
+                state.filter = filter
                 return .none
                 
             case .showCalendarView(.showCalendarGrid):
@@ -63,13 +72,14 @@ struct CalendarReducer {
                 
             case .toggleFilters(.clear):
                 return .none
+                
+
+                
+
             }
         }
         .ifLet(\.filterPlatforms, action: \.toggleFilters) {
             FilterReducer()
-        }
-        .ifLet(\.dropdown, action: \.dropdown) {
-            DropdownReducer()
         }
         .ifLet(\.booking, action: \.booking) {
             BookingsReducer()
@@ -85,7 +95,6 @@ extension CalendarReducer {
         Store(
             initialState: CalendarReducer.State(
                 calendars: .init(),
-                dropdown: DropdownReducer.mock,
                 booking: .init(),
                 filterPlatforms: .init(platform: [])
             )

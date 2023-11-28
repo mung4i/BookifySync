@@ -12,11 +12,14 @@ struct CalendarGridReducer {
     enum Action {
         case showCalendarGrid(FilterKey)
         case booking(Event?)
+        case dropdown(DropdownReducer.Action)
     }
     
     struct State: Equatable {
         @BindingState var filter: FilterKey?
         @BindingState var event: Event?
+        
+        var dropDown: DropdownReducer.State?
     }
     
     var body: some Reducer<State, Action> {
@@ -29,7 +32,14 @@ struct CalendarGridReducer {
             case let .booking(event):
                 state.event = event
                 return .none
+                
+            case let .dropdown(.filterTapped(filter)):
+                state.filter = filter
+                return .none
             }
+        }
+        .ifLet(\.dropDown, action: \.dropdown) {
+            DropdownReducer()
         }
     }
 }
