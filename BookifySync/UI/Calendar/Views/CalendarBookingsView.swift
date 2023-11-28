@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CalendarBookingsView: View {
     
-    let endDate: Date = Date.advanceDate(component: .year)
+    let endDate: Date = Date.advanceDate(component: .month)
     let sections: [Listing] = Listing.examples
     let startDate: Date = Date()
     
@@ -21,23 +21,21 @@ struct CalendarBookingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            WithViewStore(store, observe: { $0 }) { viewStore in
-                IfLetStore(
-                    self.store.scope(
-                        state: \.dropdown,
-                        action: { .dropdown($0) }
-                    )
-                ) { store in
-                    DropDownView(store: store)
-                        .padding(.top, 16)
-                        .frame(width: 280)
-                        .opacity(1)
-                        .zIndex(10)
-                    
-                }
+            IfLetStore(
+                self.store.scope(
+                    state: \.dropdown,
+                    action: { .dropdown($0) }
+                )
+            ) { store in
+                DropDownView(store: store)
+                    .padding(.top, 16)
+                    .frame(width: 280)
+                    .opacity(1)
+                    .zIndex(10)
                 
-                outerGrid()
             }
+            
+            outerGrid()
         }
     }
     
@@ -84,10 +82,8 @@ struct CalendarBookingsView: View {
     }
     
     private func grid() -> some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ForEach(0..<sections.count, id: \.self) { sectionIndex in
-                innerGrid(sectionIndex)
-            }
+        ForEach(0..<sections.count, id: \.self) { sectionIndex in
+            innerGrid(sectionIndex)
         }
     }
     

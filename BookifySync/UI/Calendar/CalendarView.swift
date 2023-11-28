@@ -28,66 +28,36 @@ struct CalendarView: View {
     }
     
     @State var showFilterView: Bool = false
-    @State private var selectedTab: TabSelectionState = .calendar
     
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             NavigationView {
                 VStack(alignment: .leading, spacing: 0) {
-                    HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
+                    HeaderView(
+                        action: { showFilterView.toggle() },
+                        title: "Calendar",
+                        imageTitle: "filter")
                     
-                    if $showFilterView.wrappedValue {
+                    if showFilterView {
                         NavigationLink(
-                            destination: IfLetStore(
-                                self.store.scope(
-                                    state: \.filterPlatforms,
-                                    action: { .toggleFilters($0) })) { store in
-                                        FilterView(store: store)
-                                    },
+                            destination: filterView(),
                             isActive: $showFilterView)
                         { EmptyView() }
                     }
                     
-                    Spacer()
-                        .frame(maxHeight: 16)
-                    
-                    Spacer()
-                        .frame(maxHeight: 16)
-                    
                     if let filter = viewStore.filter {
                         if filter == .all {
-                            IfLetStore(
-                                self.store.scope(
-                                    state: \.booking,
-                                    action: { .booking($0) }
-                                )
-                            ) { store in
-                                CalendarBookingsView(store: store)
-                                    .padding(.leading, 16)
-                            }
+                            bookingView()
                         } else {
-                            IfLetStore(
-                                self.store.scope(
-                                    state: \.calendars,
-                                    action: { .showCalendarView($0) }
-                                )
-                            ) { store in
-                                CalendarGridView(
-                                    sectionIndex: filter.index,
-                                    store: store
-                                )
-                            }
+                            calendarView(filter.index)
                         }
                     }
-                    
-                    
-                    Spacer()
                 }
                 .onAppear {
                     viewStore.send(.setFilterState(.all))
                 }
                 .overlay {
-                    if let event = viewStore.$event.wrappedValue {
+                    if let event = viewStore.event {
                         ListingView(
                             action: { viewStore.send(.booking(.showBooking(nil))) },
                             traveler: Traveler(name: event.title, event: event)
@@ -97,6 +67,42 @@ struct CalendarView: View {
                 }
                 .navigationBarBackButtonHidden()
             }
+        }
+    }
+    
+    private func bookingView() -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.booking,
+                action: { .booking($0) }
+            )
+        ) { store in
+            CalendarBookingsView(store: store)
+                .padding(.leading, 16)
+        }
+    }
+    
+    private func calendarView(_ index: Int) -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.calendars,
+                action: { .showCalendarView($0) }
+            )
+        ) { store in
+            CalendarGridView(
+                sectionIndex: index,
+                store: store
+            )
+        }
+    }
+    
+    private func filterView() -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.filterPlatforms,
+                action: { .toggleFilters($0) })
+        ) { store in
+            FilterView(store: store)
         }
     }
 }
