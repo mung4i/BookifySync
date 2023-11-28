@@ -15,18 +15,7 @@ import GoogleSignInSwift
 import ComposableArchitecture
 
 struct AuthView: View {
-    
-    private let presentingController = UIHostingController(
-        rootView: EmptyView())
-    
-    private let store = Store(
-        initialState: CalendarReducer.State(
-            calendars: CalendarGridReducer.State(filter: .all),
-            dropdown: DropdownReducer.mock,
-            booking: BookingsReducer.State(event: nil)
-        )
-    ) { CalendarReducer()._printChanges() }
-    
+    let store: StoreOf<CalendarReducer>
     @State private var showNextView = false
     
     var body: some View {
@@ -36,7 +25,10 @@ struct AuthView: View {
                 spacing: 16
             ) {
                 if $showNextView.wrappedValue {
-                    NavigationLink(destination: CalendarView(store: store), isActive: $showNextView) { EmptyView() }
+                    NavigationLink(
+                        destination: RootTabView(store: store),
+                        isActive: $showNextView,
+                        label: { EmptyView() })
                 }
                 
                 AuthHeaderView()
@@ -79,5 +71,5 @@ struct AuthView: View {
 }
 
 #Preview {
-    AuthView()
+    AuthView(store: CalendarReducer.mockStore())
 }

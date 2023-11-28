@@ -8,9 +8,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct BookingsView: View {
+struct CalendarBookingsView: View {
     
-    let actions: [Action] = generateActions(count: Listing.examples.count)
     let endDate: Date = Date.advanceDate(component: .year)
     let sections: [Listing] = Listing.examples
     let startDate: Date = Date()
@@ -34,7 +33,6 @@ struct BookingsView: View {
                         
                         ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
                             SectionView(
-                                action: actions[index],
                                 sectionTitle: section.name,
                                 width: 150,
                                 backgroundColor: Color.backgroundGray)
@@ -105,7 +103,7 @@ struct BookingsView: View {
 }
 
 #Preview {
-    BookingsView(store: Store(initialState: BookingsReducer.State(event: nil)) {
+    CalendarBookingsView(store: Store(initialState: BookingsReducer.State(event: nil)) {
         BookingsReducer()._printChanges()
     })
 }

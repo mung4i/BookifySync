@@ -45,15 +45,11 @@ struct CalendarGridView: View {
         self.endDate = calendar.date(from: components)?.addingTimeInterval(-1) ?? Date()
     }
     
-    typealias ViewState = ViewStore<CalendarGridReducer.State, CalendarGridReducer.Action>
+    private typealias ViewState = ViewStore<CalendarGridReducer.State, CalendarGridReducer.Action>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(spacing: .zero) {
-                Text("\(Date.now.formatDate("MMMM")), \(Date.now.formatDate("YYYY"))")
-                    .font(.headlineRegular)
-                    .padding()
-                
                 Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                     HStack(spacing: 0) {
                         ForEach(0..<7, id: \.self) { index in
@@ -70,7 +66,12 @@ struct CalendarGridView: View {
                             sectionIndex: sectionIndex
                         )
                         
-                        HStack(spacing: 0) { calendarCellBuilder(date: date, for: event) }
+                        HStack(spacing: 0) {
+                            calendarCellBuilder(
+                                date: date,
+                                for: event,
+                                viewStore: viewStore)
+                        }
                     }
                 }
                 .clipped()
@@ -79,12 +80,12 @@ struct CalendarGridView: View {
     }
     
     @ViewBuilder
-    private func calendarCellBuilder(date: Date, for event: Event?) -> some View {
+    private func calendarCellBuilder(date: Date, for event: Event?, viewStore: ViewState) -> some View {
         let day = date.formatDate("d")
         if let event {
             CalendarCell(day: day)
                 .pillView(
-                    action: { store.send(.booking(event)) },
+                    action: { viewStore.send(.booking(event)) },
                     name: event.title,
                     width: event.width - 25,
                     padding: 30
@@ -121,7 +122,7 @@ struct CalendarGridView: View {
     
     private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
         events.filter {
-            $0.listing.id == sections[sectionIndex].id &&
+            $0.listing.id == sections[sectionIndex - 1].id &&
             $0.startDate.formatDate("d") == getDates()[dateIndex].formatDate("d")
         }.first
     }
