@@ -51,8 +51,12 @@ struct CalendarBookingsView: View {
     }
     
     private func outerGrid() -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+        let columns = Array(
+            repeating: GridItem(.fixed(150), spacing: 0, alignment: .top),
+            count: 1)
+        
+        return ScrollView(.horizontal, showsIndicators: false) {
+            LazyVGrid(columns: columns, spacing: 0) {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
                         SectionView(
