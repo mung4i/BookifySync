@@ -36,9 +36,7 @@ struct HeaderView: View {
             Image(imageTitle, bundle: .main)
                 .resizable()
                 .frame(width: imageDimension, height: imageDimension)
-                .onTapGesture {
-                    action()
-                }
+                .onTapGesture(perform: action)
         }
         .padding(.horizontal, 16)
     }
