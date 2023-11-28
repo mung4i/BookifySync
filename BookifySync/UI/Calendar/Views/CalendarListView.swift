@@ -46,19 +46,9 @@ struct CalendarListView: View {
     }
 
     private func getDateRange() -> [Date] {
-        var currentDate = startDate
-        var dates: [Date] = []
-
-        while currentDate <= endDate {
-            dates.append(currentDate)
-            currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-        }
-
-        return dates
-    }
-
-    private func getEvents(for date: Date) -> [Event] {
-        return events.filter { Calendar.current.isDate($0.startDate, inSameDayAs: date) }
+        Date.now.getDates(
+            start: startDate,
+            endDate: endDate)
     }
 }
 

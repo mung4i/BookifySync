@@ -22,3 +22,9 @@ extension String {
         return resultString
     }
 }
+
+extension String {
+    func toInt() -> Int {
+        Int(self) ?? 1
+    }
+}

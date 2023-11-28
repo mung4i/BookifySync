@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Platforms: String, CaseIterable {
+enum Platforms: String, CaseIterable, Equatable {
     case tripitaca = "Tripitaca"
     case airbnb = "Airbnb"
     case booking = "Booking.com"

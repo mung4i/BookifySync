@@ -13,7 +13,6 @@ struct DropDownView: View {
     
     let listings: [Listing] = Listing.dropdownListings
     @State private var isDropdownVisible = false
-    @State private var selectedOption = "All"
 
     var body: some View {
         GeometryReader { _ in
@@ -29,31 +28,33 @@ struct DropDownView: View {
     }
     
     private var dropdownButton: some View {
-        HStack {
-            Text(selectedOption)
-                .font(.subheading2)
-                .padding(8)
-
-            Spacer()
-
-            Button(action: {
-                isDropdownVisible.toggle()
-            }) {
-                HStack {
-                    Image(systemName: "chevron.down")
-                        .foregroundColor(Color.gray.opacity(0.8))
-                        .rotationEffect(.degrees(isDropdownVisible ? -180 : 0))
-                        .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/, value: 0.3)
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            HStack {
+                Text(viewStore.filter.rawValue)
+                    .font(.subheading2)
+                    .padding(8)
+                
+                Spacer()
+                
+                Button(action: {
+                    isDropdownVisible.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.down")
+                            .foregroundColor(Color.gray.opacity(0.8))
+                            .rotationEffect(.degrees(isDropdownVisible ? -180 : 0))
+                            .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/, value: 0.3)
+                    }
+                    .padding(8)
                 }
-                .padding(8)
             }
-        }
-        .padding(8)
-        .background(.white)
-        .cornerRadius(8)
-        .overlay {
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray.opacity(0.4))
+            .padding(8)
+            .background(.white)
+            .cornerRadius(8)
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.4))
+            }
         }
     }
     
@@ -63,7 +64,6 @@ struct DropDownView: View {
                 ForEach(listings, id: \.self) { option in
                     HStack {
                         Button(action: {
-                            selectedOption = option.name
                             isDropdownVisible.toggle()
                             viewStore.send(.filterTapped(FilterKey(rawValue: option.name) ?? .all))
                         }) {

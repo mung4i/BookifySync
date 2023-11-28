@@ -12,11 +12,10 @@ import UIKit
 import GoogleSignIn
 import GoogleSignInSwift
 
+import ComposableArchitecture
+
 struct AuthView: View {
-    
-    private let presentingController = UIHostingController(
-        rootView: EmptyView())
-    
+    let store: StoreOf<CalendarReducer>
     @State private var showNextView = false
     
     var body: some View {
@@ -26,7 +25,10 @@ struct AuthView: View {
                 spacing: 16
             ) {
                 if $showNextView.wrappedValue {
-                    NavigationLink(destination: CalendarView(), isActive: $showNextView) { EmptyView() }
+                    NavigationLink(
+                        destination: RootTabView(store: store),
+                        isActive: $showNextView,
+                        label: { EmptyView() })
                 }
                 
                 AuthHeaderView()
@@ -69,5 +71,5 @@ struct AuthView: View {
 }
 
 #Preview {
-    AuthView()
+    AuthView(store: CalendarReducer.mockStore())
 }

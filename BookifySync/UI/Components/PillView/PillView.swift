@@ -63,12 +63,11 @@ struct PillView: View {
             }
             .frame(width: width, height: height)
         }
-        .background(titleColor)
-        .cornerRadius(height / 2)
-        .overlay {
-            RoundedRectangle(cornerRadius: height / 2)
-                .stroke(Color.gray.opacity(0.1))
-        }
+        .background(
+            Capsule()
+                .fill(titleColor)
+        )
+        .clipped()
     }
 }
 

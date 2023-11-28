@@ -9,33 +9,16 @@ import ComposableArchitecture
 import SwiftUI
 
 struct CalendarView: View {
-    init(
-        actions: [Action] = generateActions(count: Listing.dropdownListings.count),
-        endDate: Date = Date.advanceDate(component: .year),
-        startDate: Date = Date(),
-        store: StoreOf<CalendarReducer> = Store(
-            initialState: CalendarReducer.State(
-                calendars: CalendarGridReducer.State(filter: .all),
-                dropdown: DropdownReducer.mock,
-                booking: BookingsReducer.State(event: nil)
-            )
-        ) {
-            CalendarReducer()._printChanges()
-        }
-    ) {
-        self.actions = actions
-        self.endDate = endDate
-        self.startDate = startDate
+    init(store: StoreOf<CalendarReducer>) {
         self.store = store
     }
     
     let store: StoreOf<CalendarReducer>
-    let actions: [Action]
-    let endDate: Date
-    let startDate: Date
+    let endDate = Date.advanceDate(component: .year)
+    let startDate = Date()
     
     struct ViewState: Equatable {
-        @BindingViewState var filter: FilterKey
+        @BindingViewState var filter: FilterKey?
         @BindingViewState var event: Event?
         
         init(store: BindingViewStore<CalendarReducer.State>) {
@@ -45,111 +28,85 @@ struct CalendarView: View {
     }
     
     @State var showFilterView: Bool = false
-    @State private var selectedTab: Int = 2
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            TabView(selection: $selectedTab) {
-                Text("Messages")
-                    .tabItem {
-                        Image("messages")
-                        Text("Messages")
+        WithViewStore(self.store, observe: ViewState.init) { viewStore in
+            NavigationView {
+                VStack(alignment: .leading, spacing: 16) {
+                    HeaderView(
+                        action: { showFilterView.toggle() },
+                        title: "Calendar",
+                        imageTitle: "filter")
+                    
+                    if showFilterView {
+                        NavigationLink(
+                            destination: filterView(),
+                            isActive: $showFilterView)
+                        { EmptyView() }
                     }
-                
-                Text("Offers")
-                    .tabItem {
-                        Image("gift")
-                        Text("Offers")
-                    }
-                
-                NavigationView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        if $showFilterView.wrappedValue {
-                            NavigationLink(destination: FilterView(), isActive: $showFilterView) { EmptyView() }
-                        }
-                        
-                        HeaderView(action: { showFilterView.toggle() }, title: "Calendar", imageTitle: "filter")
-                            .padding(.top, 32)
-                        
-                        IfLetStore(
-                            self.store.scope(
-                                state: \.dropdown,
-                                action: { .dropdown($0) }
-                            )
-                        ) { store in
-                            DropDownView(store: store)
-                                .frame(width: 280)
-                                .opacity(1)
-                                .zIndex(10)
-                        }
-                        
-                        if viewStore.$filter.wrappedValue == .all {
-                            IfLetStore(
-                                self.store.scope(
-                                    state: \.booking,
-                                    action: { .booking($0) }
-                                )
-                            ) { store in
-                                BookingsView(store: store)
-                                    .padding(.leading, 16)
-                                    .padding(.bottom, 100)
-                            }
+                    
+                    if let filter = viewStore.filter {
+                        if filter == .all {
+                            bookingView()
                         } else {
-                            IfLetStore(
-                                self.store.scope(
-                                    state: \.calendars,
-                                    action: { .showCalendarView($0) }
-                                )
-                            ) { store in
-                                CalendarGridView(
-                                    sectionIndex: viewStore.$filter.wrappedValue.index,
-                                    store: store
-                                )
-                                .padding(.leading, 16)
-                                .padding(.bottom, 100)
-                            }
+                            calendarView(filter.index)
                         }
                     }
-                    .overlay {
-                        if let event = viewStore.$event.wrappedValue {
-                            ListingView(
-                                action: { viewStore.send(.booking(.showBooking(nil))) },
-                                traveler: Traveler(name: event.title, event: event)
-                            )
-                            .background(.white)
-                        }
-                    }
-                    .navigationBarBackButtonHidden()
                 }
-                .tabItem {
-                    Image("calendar")
-                    Text("Calendar")
-                        .font(.headingRegular)
+                .onAppear {
+                    viewStore.send(.setFilterState(.all))
                 }
-                
-                Text("Bookings")
-                    .tabItem {
-                        Image("bookings")
-                        Text("Bookings")
-                            .font(.headingRegular)
+                .overlay {
+                    if let event = viewStore.event {
+                        ListingView(
+                            action: { viewStore.send(.booking(.showBooking(nil))) },
+                            traveler: Traveler(name: event.title, event: event)
+                        )
+                        .background(.white)
                     }
-                
-                Text("Menu")
-                    .tabItem {
-                        Image("menu")
-                        Text("Menu")
-                            .font(.headingRegular)
-                    }
+                }
+                .navigationBarBackButtonHidden()
             }
-            .accentColor(.primaryRed)
-            .navigationBarBackButtonHidden()
-        }.onAppear {
-            selectedTab = 2
         }
-
+    }
+    
+    private func bookingView() -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.booking,
+                action: { .booking($0) }
+            )
+        ) { store in
+            CalendarBookingsView(store: store)
+                .padding(.leading, 16)
+        }
+    }
+    
+    private func calendarView(_ index: Int) -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.calendars,
+                action: { .showCalendarView($0) }
+            )
+        ) { store in
+            CalendarGridView(
+                sectionIndex: index,
+                store: store
+            )
+        }
+    }
+    
+    private func filterView() -> some View {
+        IfLetStore(
+            self.store.scope(
+                state: \.filterPlatforms,
+                action: { .toggleFilters($0) })
+        ) { store in
+            FilterView(store: store)
+        }
     }
 }
 
 #Preview {
-    CalendarView()
+    CalendarView(store: CalendarReducer.mockStore())
 }

@@ -16,9 +16,52 @@ struct Event: Hashable {
 }
 
 extension Event {
+    private var difference: Int {
+        let start = startDate.toDay()
+        let end = endDate.toDay()
+        return end - start
+    }
+    
     var width: CGFloat {
-        var days = (Int(endDate.formatDate("d")) ?? 1) - (Int(startDate.formatDate("d")) ?? 1)
-        return CGFloat(50 * days)
+        return CGFloat(difference <= 0  ? 150 : 50 * difference)
+    }
+    
+    var gridWidth: CGFloat {
+        return CGFloat(difference <= 0  ? 75 : 50 * difference)
+    }
+    
+    func showEvent(date: Date) -> Bool {
+        if (date.toDay() >= startDate.toDay()) || (date.toDay() <= endDate.toDay()) {
+            return true
+        }
+        return false
+    }
+}
+
+extension Sequence where Element == Event {
+    func getEvent(
+        dateIndex: Int,
+        dates: [Date],
+        sections: [Listing],
+        sectionIndex: Int
+    ) -> Event? {
+        filter { event in
+            event.listing.id == sections[sectionIndex].id &&
+            event.startDate.formatDate("d") == dates[dateIndex].formatDate("d")
+        }.first ?? nil
+    }
+    
+    func hasEvent(date: Date) -> Bool {
+        filter {
+            let startDate = $0.startDate.toDay()
+            let endDate = $0.endDate.toDay()
+            let day = date.toDay()
+            
+            if day > startDate && day <= endDate {
+                return true
+            }
+            return false
+        }.count == 0
     }
 }
 

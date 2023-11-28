@@ -11,16 +11,15 @@ import GoogleSignIn
 
 @main
 struct BookifySyncApp: App {
-    let persistenceController = PersistenceController.shared
-    
     init() {
         Fonts.registerFonts()
     }
+    
+    let store = CalendarReducer.mockStore()
 
     var body: some Scene {
         WindowGroup {
-            AuthView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            AuthView(store: store)
                 .onAppear {
                     GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
                         if error != nil || user == nil {
