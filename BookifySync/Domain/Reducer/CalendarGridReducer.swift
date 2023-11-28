@@ -5,7 +5,6 @@
 //  Created by Martin Mungai on 20/11/2023.
 //
 
-import Foundation
 import ComposableArchitecture
 
 @Reducer
@@ -16,7 +15,7 @@ struct CalendarGridReducer {
     }
     
     struct State: Equatable {
-        @BindingState var filter: FilterKey
+        @BindingState var filter: FilterKey?
         @BindingState var event: Event?
     }
     
@@ -34,5 +33,3 @@ struct CalendarGridReducer {
         }
     }
 }
-
-
