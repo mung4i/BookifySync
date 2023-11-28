@@ -8,9 +8,9 @@
 import Foundation
 
 enum TabSelectionState: Int, CaseIterable {
+    case calendar
     case messages
     case offers
-    case calendar
     case bookings
     case menu
 }

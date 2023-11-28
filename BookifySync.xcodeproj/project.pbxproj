@@ -24,9 +24,7 @@
 		7D23493C2B0824FA00F78D09 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23493B2B0824FA00F78D09 /* SectionView.swift */; };
 		7D23493E2B08254F00F78D09 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D23493D2B08254F00F78D09 /* Action.swift */; };
 		7D4E81982B07CA63004B9B3C /* BookifySyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */; };
-		7D4E819A2B07CA63004B9B3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81992B07CA63004B9B3C /* ContentView.swift */; };
 		7D4E819C2B07CA65004B9B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E819B2B07CA65004B9B3C /* Assets.xcassets */; };
-		7D4E81A12B07CA65004B9B3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A02B07CA65004B9B3C /* Persistence.swift */; };
 		7D4E81A42B07CA65004B9B3C /* BookifySync.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */; };
 		7D4E81AC2B07D0CA004B9B3C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7D4E81AB2B07D0CA004B9B3C /* ComposableArchitecture */; };
 		7D5F1C792B0C314000E916B8 /* BookingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F1C782B0C314000E916B8 /* BookingsReducer.swift */; };
@@ -102,9 +100,7 @@
 		7D23493D2B08254F00F78D09 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		7D4E81942B07CA63004B9B3C /* BookifySync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookifySync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookifySyncApp.swift; sourceTree = "<group>"; };
-		7D4E81992B07CA63004B9B3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7D4E819B2B07CA65004B9B3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7D4E81A02B07CA65004B9B3C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		7D4E81A32B07CA65004B9B3C /* BookifySync.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookifySync.xcdatamodel; sourceTree = "<group>"; };
 		7D5F1C782B0C314000E916B8 /* BookingsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsReducer.swift; sourceTree = "<group>"; };
 		7D6841F82B0A723600649F60 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
@@ -277,8 +273,6 @@
 				7D4E81A22B07CA65004B9B3C /* BookifySync.xcdatamodeld */,
 				7D2349142B07E74900F78D09 /* Info.plist */,
 				7D4E81972B07CA63004B9B3C /* BookifySyncApp.swift */,
-				7D4E81992B07CA63004B9B3C /* ContentView.swift */,
-				7D4E81A02B07CA65004B9B3C /* Persistence.swift */,
 			);
 			path = BookifySync;
 			sourceTree = "<group>";
@@ -554,9 +548,7 @@
 				7DE0D2DD2B0BC5F6002AA0E7 /* ListingView.swift in Sources */,
 				7DA0A51A2B16565600E106C9 /* MessagesView.swift in Sources */,
 				7D23493A2B08215E00F78D09 /* CalendarBookingsView.swift in Sources */,
-				7D4E81A12B07CA65004B9B3C /* Persistence.swift in Sources */,
 				7DE0D2D12B0B78D9002AA0E7 /* Traveler.swift in Sources */,
-				7D4E819A2B07CA63004B9B3C /* ContentView.swift in Sources */,
 				7D23492A2B081BFD00F78D09 /* String+.swift in Sources */,
 				7D724D272B0B558C0060134E /* FilterKey.swift in Sources */,
 				7D2349302B081D2F00F78D09 /* Event.swift in Sources */,

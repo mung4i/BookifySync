@@ -65,18 +65,18 @@ struct CalendarReducer {
                 return .none
             }
         }
-//        .ifLet(\.filterPlatforms, action: \.toggleFilters) {
-//            FilterReducer()
-//        }
-//        .ifLet(\.dropdown, action: \.dropdown) {
-//            DropdownReducer()
-//        }
-//        .ifLet(\.booking, action: \.booking) {
-//            BookingsReducer()
-//        }
-//        .ifLet(\.calendars, action: \.showCalendarView) {
-//            CalendarGridReducer()
-//        }
+        .ifLet(\.filterPlatforms, action: \.toggleFilters) {
+            FilterReducer()
+        }
+        .ifLet(\.dropdown, action: \.dropdown) {
+            DropdownReducer()
+        }
+        .ifLet(\.booking, action: \.booking) {
+            BookingsReducer()
+        }
+        .ifLet(\.calendars, action: \.showCalendarView) {
+            CalendarGridReducer()
+        }
     }
 }
 

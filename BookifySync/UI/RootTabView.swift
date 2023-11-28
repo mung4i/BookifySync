@@ -15,11 +15,11 @@ struct RootTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            CalendarView(store: store)
+            
             MessagesView()
             
             OffersView()
-            
-            CalendarView(store: store)
             
             BookingsView()
             
