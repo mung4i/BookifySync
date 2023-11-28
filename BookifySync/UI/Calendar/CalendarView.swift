@@ -9,30 +9,21 @@ import ComposableArchitecture
 import SwiftUI
 
 struct CalendarView: View {
-    init(
-        actions: [Action] = generateActions(count: Listing.dropdownListings.count),
-        endDate: Date = Date.advanceDate(component: .year),
-        startDate: Date = Date(),
-        store: StoreOf<CalendarReducer> = Store(
-            initialState: CalendarReducer.State(
-                calendars: CalendarGridReducer.State(filter: .all),
-                dropdown: DropdownReducer.mock,
-                booking: BookingsReducer.State(event: nil)
-            )
-        ) {
-            CalendarReducer()._printChanges()
-        }
-    ) {
-        self.actions = actions
-        self.endDate = endDate
-        self.startDate = startDate
+    init(store: StoreOf<CalendarReducer>) {
         self.store = store
     }
     
     let store: StoreOf<CalendarReducer>
-    let actions: [Action]
-    let endDate: Date
-    let startDate: Date
+    let endDate = Date.advanceDate(component: .year)
+    let startDate = Date()
+    
+    enum TabSelectionState: Int, CaseIterable {
+        case messages
+        case offers
+        case calendar
+        case bookings
+        case menu
+    }
     
     struct ViewState: Equatable {
         @BindingViewState var filter: FilterKey
@@ -45,22 +36,20 @@ struct CalendarView: View {
     }
     
     @State var showFilterView: Bool = false
-    @State private var selectedTab: Int = 2
+    @State private var selectedTab: TabSelectionState = .calendar
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             TabView(selection: $selectedTab) {
                 Text("Messages")
-                    .tabItem {
-                        Image("messages")
-                        Text("Messages")
-                    }
+                    .tabItem(
+                        imageTitle: "messages",
+                        title: "Messages")
                 
                 Text("Offers")
-                    .tabItem {
-                        Image("gift")
-                        Text("Offers")
-                    }
+                    .tabItem(
+                        imageTitle: "gift",
+                        title: "Offers")
                 
                 NavigationView {
                     VStack(alignment: .leading, spacing: 16) {
@@ -78,12 +67,13 @@ struct CalendarView: View {
                             )
                         ) { store in
                             DropDownView(store: store)
+                                .padding(.top, 16)
                                 .frame(width: 280)
                                 .opacity(1)
                                 .zIndex(10)
                         }
                         
-                        if viewStore.$filter.wrappedValue == .all {
+                        if viewStore.filter == .all {
                             IfLetStore(
                                 self.store.scope(
                                     state: \.booking,
@@ -92,7 +82,6 @@ struct CalendarView: View {
                             ) { store in
                                 BookingsView(store: store)
                                     .padding(.leading, 16)
-                                    .padding(.bottom, 100)
                             }
                         } else {
                             IfLetStore(
@@ -106,9 +95,10 @@ struct CalendarView: View {
                                     store: store
                                 )
                                 .padding(.leading, 16)
-                                .padding(.bottom, 100)
                             }
                         }
+                        
+                        Spacer()
                     }
                     .overlay {
                         if let event = viewStore.$event.wrappedValue {
@@ -121,35 +111,36 @@ struct CalendarView: View {
                     }
                     .navigationBarBackButtonHidden()
                 }
-                .tabItem {
-                    Image("calendar")
-                    Text("Calendar")
-                        .font(.headingRegular)
-                }
+                .tabItem(
+                    imageTitle: "calendar",
+                    title: "Calendar")
                 
                 Text("Bookings")
-                    .tabItem {
-                        Image("bookings")
-                        Text("Bookings")
-                            .font(.headingRegular)
-                    }
+                    .tabItem(
+                        imageTitle: "bookings",
+                        title: "Bookings")
                 
                 Text("Menu")
-                    .tabItem {
-                        Image("menu")
-                        Text("Menu")
-                            .font(.headingRegular)
-                    }
+                    .tabItem(
+                        imageTitle: "menu",
+                        title: "Menu")
             }
             .accentColor(.primaryRed)
             .navigationBarBackButtonHidden()
-        }.onAppear {
-            selectedTab = 2
         }
-
     }
 }
 
 #Preview {
-    CalendarView()
+    CalendarView(
+        store: Store(
+            initialState: CalendarReducer.State(
+                calendars: CalendarGridReducer.State(filter: .all),
+                dropdown: DropdownReducer.mock,
+                booking: BookingsReducer.State(event: nil)
+            )
+        ) {
+            CalendarReducer()._printChanges()
+        }
+    )
 }

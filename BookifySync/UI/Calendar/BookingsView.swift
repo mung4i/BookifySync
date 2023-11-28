@@ -70,19 +70,14 @@ struct BookingsView: View {
                         ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
                             let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
                             SectionView()
-                                .overlay {
-                                    PillView(
-                                        action: {
-                                            viewStore.send(.showBooking(event))
-                                        },
-                                        name: event?.title ?? "",
-                                        width: event?.width ?? 100
-                                    )
-                                    .opacity(event == nil ? 0 : 1)
-                                    .padding(.leading, 150)
-                                }
+                                .pillView(
+                                    action: { viewStore.send(.showBooking(event)) },
+                                    name: event?.title ?? "",
+                                    width: event?.width ?? 150,
+                                    padding: 125,
+                                    isHidden: event == nil
+                                )
                         }
-                        
                     }
                 }
             }
