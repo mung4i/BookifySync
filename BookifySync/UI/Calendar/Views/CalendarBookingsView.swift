@@ -31,7 +31,8 @@ struct CalendarBookingsView: View {
                             backgroundColor: Color.backgroundGray)
                         .background(Color.backgroundGray)
                         
-                        ForEach(Array(sections.enumerated()), id: \.offset) { index, section in
+                        ForEach(0..<sections.count, id: \.self) { index in
+                            let section = sections[index]
                             SectionView(
                                 sectionTitle: section.name,
                                 width: 150,
@@ -62,20 +63,26 @@ struct CalendarBookingsView: View {
     
     private func grid() -> some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ForEach(Array(sections.enumerated()), id: \.offset) { sectionIndex, _ in
-                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                    GridRow {
-                        ForEach(Array(getDateRange().enumerated()), id: \.offset) { index, _ in
-                            let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
-                            SectionView()
-                                .pillView(
-                                    action: { viewStore.send(.showBooking(event)) },
-                                    name: event?.title ?? "",
-                                    width: event?.width ?? 150,
-                                    padding: 125,
-                                    isHidden: event == nil
-                                )
-                        }
+            ForEach(0..<sections.count, id: \.self) { sectionIndex in
+                innerGrid(sectionIndex)
+            }
+        }
+    }
+    
+    private func innerGrid(_ sectionIndex: Int) -> some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                GridRow {
+                    ForEach(0..<getDateRange().count, id: \.self) { index in
+                        let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
+                        SectionView()
+                            .pillView(
+                                action: { viewStore.send(.showBooking(event)) },
+                                name: event?.title ?? "",
+                                width: event?.width ?? 150,
+                                padding: 125,
+                                isHidden: event == nil
+                            )
                     }
                 }
             }
@@ -83,22 +90,17 @@ struct CalendarBookingsView: View {
     }
     
     private func getDateRange() -> [Date] {
-        var currentDate = startDate
-        var dates: [Date] = []
-        
-        while currentDate <= endDate {
-            dates.append(currentDate)
-            currentDate = Date.advanceDate(date: currentDate)
-        }
-        
-        return dates
+        Date.now.getDates(
+            start: startDate,
+            endDate: endDate)
     }
     
     private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
-        events.filter {
-            $0.listing.name == sections[sectionIndex].name &&
-            $0.startDate.formatDate() == getDateRange()[dateIndex].formatDate()
-        }.first
+        events.getEvent(
+            dateIndex: dateIndex,
+            dates: getDateRange(),
+            sections: sections,
+            sectionIndex: sectionIndex)
     }
 }
 

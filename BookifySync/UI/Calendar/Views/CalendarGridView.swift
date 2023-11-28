@@ -45,86 +45,74 @@ struct CalendarGridView: View {
         self.endDate = calendar.date(from: components)?.addingTimeInterval(-1) ?? Date()
     }
     
-    private typealias ViewState = ViewStore<CalendarGridReducer.State, CalendarGridReducer.Action>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            VStack(spacing: .zero) {
-                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                    HStack(spacing: 0) {
-                        ForEach(0..<7, id: \.self) { index in
-                            let date = getDates()[index]
-                            CalendarCell(day: date.formatDate("E"))
-                        }
+        VStack(spacing: .zero) {
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                HStack(spacing: 0) {
+                    ForEach(0..<7, id: \.self) { index in
+                        let date = getDates()[index]
+                        CalendarCell(day: date.formatDate("E"))
                     }
                 }
-                
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(getDates(), id: \.self) { date in
-                        let event = getEvent(
-                            dateIndex: date.toDay() - 1,
-                            sectionIndex: sectionIndex
-                        )
-                        
-                        HStack(spacing: 0) {
-                            calendarCellBuilder(
-                                date: date,
-                                for: event,
-                                viewStore: viewStore)
-                        }
-                    }
-                }
-                .clipped()
             }
+            
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(getDates(), id: \.self) { date in
+                    let event = getEvent(
+                        dateIndex: date.toDay() - 1,
+                        sectionIndex: sectionIndex
+                    )
+                    
+                    HStack(spacing: 0) {
+                        calendarCellBuilder(
+                            date: date,
+                            for: event)
+                    }
+                }
+            }
+            .clipped()
         }
     }
     
     @ViewBuilder
-    private func calendarCellBuilder(date: Date, for event: Event?, viewStore: ViewState) -> some View {
-        let day = date.formatDate("d")
-        if let event {
-            CalendarCell(day: day)
-                .pillView(
-                    action: { viewStore.send(.booking(event)) },
-                    name: event.title,
-                    width: event.width - 25,
-                    padding: 30
-                )
-        } else {
-            CalendarCell(day: day)
+    private func calendarCellBuilder(
+        date: Date,
+        for event: Event?
+    ) -> some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            let day = date.formatDate("d")
+            if let event {
+                CalendarCell(day: day)
+                    .pillView(
+                        action: { viewStore.send(.booking(event)) },
+                        name: event.title,
+                        width: event.width - 25,
+                        padding: 30
+                    )
+            } else {
+                CalendarCell(day: day)
+            }
         }
+        
     }
     
     private func dateHasEvent(date: Date) -> Bool {
-        events.filter {
-            let startDate = $0.startDate.toDay()
-            let endDate = $0.endDate.toDay()
-            let day = date.toDay()
-            
-            if day > startDate && day <= endDate {
-                return true
-            }
-            return false
-        }.count == 0
+        events.hasEvent(date: date)
     }
 
     func getDates() -> [Date] {
-        var dates: [Date] = []
-        var currentDate = startDate
-
-        while currentDate <= endDate {
-            dates.append(currentDate)
-            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? Date()
-        }
-
-        return dates
+        Date.now.getDates(
+            start: startDate,
+            endDate: endDate)
     }
     
     private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
-        events.filter {
-            $0.listing.id == sections[sectionIndex - 1].id &&
-            $0.startDate.formatDate("d") == getDates()[dateIndex].formatDate("d")
-        }.first
+        events.getEvent(
+            dateIndex: dateIndex,
+            dates: getDates(),
+            sections: sections,
+            sectionIndex: sectionIndex)
     }
 }
 
