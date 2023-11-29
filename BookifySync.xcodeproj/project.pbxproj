@@ -199,18 +199,13 @@
 		7D2349332B081D7A00F78D09 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7DAF523A2B17DA2000DDFDB1 /* Calendar */,
+				7DAF523B2B17DA3E00DDFDB1 /* CheckboxView */,
+				7DAF52392B17DA0A00DDFDB1 /* ListingView */,
 				7D72120B2B15264F001DD8D5 /* PillView */,
 				7D7212082B1506CA001DD8D5 /* TabItemView */,
-				7DE0D2CC2B0B7552002AA0E7 /* CalendarCell.swift */,
-				7DAF52372B178DCF00DDFDB1 /* CalendarSectionView.swift */,
-				7DE0D2D62B0BBE9B002AA0E7 /* Checkbox.swift */,
-				7DA0A5092B1630A000E106C9 /* CheckBoxView.swift */,
 				7D2349232B080E7F00F78D09 /* HeaderView.swift */,
-				7DE0D2DC2B0BC5F6002AA0E7 /* ListingView.swift */,
 				7DE0D2D82B0BC26E002AA0E7 /* PrimaryButton.swift */,
-				7D23493B2B0824FA00F78D09 /* SectionView.swift */,
-				7DE0D2DE2B0BC7D1002AA0E7 /* TravelerCard.swift */,
-				7DE0D2E02B0BCD80002AA0E7 /* TravelerDetailsCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -410,6 +405,35 @@
 				7DA0A50F2B164F8600E106C9 /* MenuView.swift */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		7DAF52392B17DA0A00DDFDB1 /* ListingView */ = {
+			isa = PBXGroup;
+			children = (
+				7DE0D2DC2B0BC5F6002AA0E7 /* ListingView.swift */,
+				7DE0D2DE2B0BC7D1002AA0E7 /* TravelerCard.swift */,
+				7DE0D2E02B0BCD80002AA0E7 /* TravelerDetailsCard.swift */,
+			);
+			path = ListingView;
+			sourceTree = "<group>";
+		};
+		7DAF523A2B17DA2000DDFDB1 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				7DE0D2CC2B0B7552002AA0E7 /* CalendarCell.swift */,
+				7DAF52372B178DCF00DDFDB1 /* CalendarSectionView.swift */,
+				7D23493B2B0824FA00F78D09 /* SectionView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		7DAF523B2B17DA3E00DDFDB1 /* CheckboxView */ = {
+			isa = PBXGroup;
+			children = (
+				7DE0D2D62B0BBE9B002AA0E7 /* Checkbox.swift */,
+				7DA0A5092B1630A000E106C9 /* CheckBoxView.swift */,
+			);
+			path = CheckboxView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
