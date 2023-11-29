@@ -15,18 +15,31 @@ struct PillViewModifier: ViewModifier {
     let padding: CGFloat
     let isHidden: Bool
     let platform: Platform
+    let padBottom: Bool
     
     func body(content: Content) -> some View {
         content.overlay {
-            PillView(
-                action: action,
-                name: name,
-                width: width,
-                height: height,
-                platform: platform)
-            .zIndex(10)
-            .padding(.leading, padding)
-            .opacity(isHidden ? 0 : 1)
+            if padBottom {
+                VStack {
+                    Spacer()
+                    pillView
+                        .padding(.bottom, 4)
+                }
+            } else {
+                pillView
+            }
         }
+    }
+    
+    private var pillView: some View {
+        PillView(
+            action: action,
+            name: name,
+            width: width,
+            height: height,
+            platform: platform)
+        .zIndex(10)
+        .padding(.leading, padding)
+        .opacity(isHidden ? 0 : 1)
     }
 }

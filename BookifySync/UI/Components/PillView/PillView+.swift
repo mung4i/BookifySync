@@ -15,7 +15,8 @@ extension View {
         height: CGFloat = 45,
         padding: CGFloat = 25,
         isHidden: Bool = false,
-        platform: Platform
+        platform: Platform,
+        padBottom: Bool = false
     ) -> some View {
         modifier(
             PillViewModifier(
@@ -25,7 +26,8 @@ extension View {
                 height: height,
                 padding: padding,
                 isHidden: isHidden,
-                platform: platform)
+                platform: platform,
+                padBottom: padBottom)
         )
     }
 }

@@ -67,10 +67,56 @@ struct CalendarGridView: View {
                 upperGrid()
                 lowerGrid()
             }
-            .padding(.horizontal, 16)
             
             Spacer()
         }
+    }
+    
+    @ViewBuilder
+    private func calendarCellBuilder(
+        date: Date,
+        for event: Event?
+    ) -> some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            let day = date.formatDate("d")
+            if let event {
+                CalendarCell(day: day, showTitle: true)
+                    .pillView(
+                        action: { viewStore.send(.booking(event)) },
+                        name: event.title,
+                        width: event.width - 25,
+                        height: 34,
+                        padding: 0,
+                        platform: event.platform,
+                        padBottom: true)
+            } else {
+                CalendarCell(day: day, showTitle: dateHasEvent(date: date))
+            }
+        }
+        
+    }
+    
+    private func dateHasEvent(date: Date) -> Bool {
+        events.hasEvent(date: date)
+    }
+
+    private func getDates() -> [Date] {
+        Date.now.getDates(
+            start: startDate,
+            endDate: endDate)
+    }
+    
+    private func getEvent(
+        dateIndex: Int,
+        sectionIndex: Int,
+        platforms: [Platform: Bool] = Platform.defaultState
+    ) -> Event? {
+        events.getEvent(
+            dateIndex: dateIndex,
+            dates: getDates(),
+            sections: sections,
+            sectionIndex: sectionIndex,
+            platforms: platforms)
     }
     
     private func lowerGrid() -> some View {
@@ -98,55 +144,12 @@ struct CalendarGridView: View {
             HStack(spacing: 0) {
                 ForEach(0..<7, id: \.self) { index in
                     let date = getDates()[index]
-                    CalendarCell(day: date.formatDate("E"))
+                    CalendarCell(
+                        day: date.formatDate("E"),
+                        showTitle: false)
                 }
             }
         }
-    }
-    
-    @ViewBuilder
-    private func calendarCellBuilder(
-        date: Date,
-        for event: Event?
-    ) -> some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            let day = date.formatDate("d")
-            if let event {
-                CalendarCell(day: day)
-                    .pillView(
-                        action: { viewStore.send(.booking(event)) },
-                        name: event.title,
-                        width: event.width - 25,
-                        padding: 30,
-                        platform: event.platform)
-            } else {
-                CalendarCell(day: day)
-            }
-        }
-        
-    }
-    
-    private func dateHasEvent(date: Date) -> Bool {
-        events.hasEvent(date: date)
-    }
-
-    func getDates() -> [Date] {
-        Date.now.getDates(
-            start: startDate,
-            endDate: endDate)
-    }
-    
-    private func getEvent(
-        dateIndex: Int,
-        sectionIndex: Int,
-        platforms: [Platform: Bool] = Platform.defaultState
-    ) -> Event? {
-        events.getEvent(
-            dateIndex: dateIndex,
-            dates: getDates(),
-            sections: sections,
-            sectionIndex: sectionIndex,
-            platforms: platforms)
     }
 }
 
