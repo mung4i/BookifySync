@@ -23,10 +23,8 @@ struct CheckBoxView: View {
         HStack {
             Image(systemName: checked ? "checkmark.square.fill" : "square")
                 .foregroundColor(checked ? Color.black : Color.backgroundGray)
-                .onTapGesture {
-                    action()
-                }
         }
+        .onTapGesture(perform: action)
     }
 }
 
@@ -37,5 +35,3 @@ struct CheckBoxView: View {
         CheckBoxView(checked: true)
     }
 }
-
-//checkmark.square.fill

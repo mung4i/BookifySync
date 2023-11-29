@@ -10,13 +10,16 @@ import SwiftUI
 struct Checkbox: View {
     init(
         action: @escaping Action = {},
+        checked: Bool,
         title: String = ""
     ) {
         self.action = action
+        self.checked = checked
         self.title = title
     }
     
     private let action: Action
+    private let checked: Bool
     private let title: String
     
     @State private var isOn = false
@@ -28,24 +31,12 @@ struct Checkbox: View {
             
             Spacer()
             
-            
-            CheckBoxView(action: { isOn.toggle() }, checked: isOn)
+            CheckBoxView(action: action, checked: checked)
         }
         .padding(.horizontal, 16)
     }
 }
 
 #Preview {
-    Checkbox(title: "Checkbox title")
-}
-
-struct CheckboxToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Button(action: { configuration.isOn.toggle() }) {
-            HStack {
-                Image(systemName: configuration.isOn ? "checkmark.square": "square")
-                    .foregroundColor(.black)
-            }
-        }
-    }
+    Checkbox(checked: false, title: "Checkbox title")
 }
