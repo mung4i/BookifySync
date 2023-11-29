@@ -13,7 +13,7 @@ struct Event: Hashable {
     let endDate: Date
     let title: String
     let listing: Listing
-    let platform: Platforms
+    let platform: Platform
 }
 
 extension Event {
@@ -45,7 +45,7 @@ extension Sequence where Element == Event {
         dates: [Date],
         sections: [Listing],
         sectionIndex: Int,
-        platforms: [Platforms: Bool] = Platforms.defaultState
+        platforms: [Platform: Bool] = Platform.defaultState
     ) -> Event? {
         let selection = self.filter { event in
             event.listing.id == sections[sectionIndex].id &&

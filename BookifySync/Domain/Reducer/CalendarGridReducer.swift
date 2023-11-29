@@ -18,7 +18,7 @@ struct CalendarGridReducer {
     struct State: Equatable {
         @BindingState var filter: FilterKey?
         @BindingState var event: Event?
-        @BindingState var filterState: [Platforms: Bool] = Platforms.defaultState
+        @BindingState var filterState: [Platform: Bool] = Platform.defaultState
         
         var dropDown: DropdownReducer.State?
     }

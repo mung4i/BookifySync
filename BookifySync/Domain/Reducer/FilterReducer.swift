@@ -10,13 +10,13 @@ import ComposableArchitecture
 @Reducer
 struct FilterReducer {
     enum Action {
-        case checkBoxTapped(Platforms)
+        case checkBoxTapped(Platform)
         case clear
     }
     
     struct State: Equatable {
-        @BindingState var platform: [Platforms] = Platforms.allCases.map { $0 }
-        @BindingState var filterState: [Platforms: Bool] = Platforms.defaultState
+        @BindingState var platform: [Platform] = Platform.allCases.map { $0 }
+        @BindingState var filterState: [Platform: Bool] = Platform.defaultState
     }
     
     var body: some Reducer<State, Action> {
@@ -24,7 +24,7 @@ struct FilterReducer {
             
             switch action {
             case .clear:
-                state.filterState = Platforms.defaultState
+                state.filterState = Platform.defaultState
                 return .none
             case let .checkBoxTapped(platform):
                 if var platformFilterState = state.filterState[platform] {

@@ -28,7 +28,8 @@ struct TravelerCard: View {
                 
                 PillView(
                     name: traveler.event.listing.name,
-                    width: traveler.event.width)
+                    width: traveler.event.width,
+                    platform: traveler.event.platform)
             }
             .padding(EdgeInsets(top: 32, leading: 10, bottom: 32, trailing: 32))
         }

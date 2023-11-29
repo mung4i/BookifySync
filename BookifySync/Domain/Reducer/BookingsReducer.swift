@@ -17,7 +17,7 @@ struct BookingsReducer {
     struct State: Equatable {
         @BindingState var event: Event?
         @BindingState var filter: FilterKey?
-        @BindingState var filterState: [Platforms: Bool] = Platforms.defaultState
+        @BindingState var filterState: [Platform: Bool] = Platform.defaultState
         
         var dropdown: DropdownReducer.State?
     }

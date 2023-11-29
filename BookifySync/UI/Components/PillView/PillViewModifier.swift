@@ -14,6 +14,7 @@ struct PillViewModifier: ViewModifier {
     let height: CGFloat
     let padding: CGFloat
     let isHidden: Bool
+    let platform: Platform
     
     func body(content: Content) -> some View {
         content.overlay {
@@ -21,7 +22,8 @@ struct PillViewModifier: ViewModifier {
                 action: action,
                 name: name,
                 width: width,
-                height: height)
+                height: height,
+                platform: platform)
             .zIndex(10)
             .padding(.leading, padding)
             .opacity(isHidden ? 0 : 1)

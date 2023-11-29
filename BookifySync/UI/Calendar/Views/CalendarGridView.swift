@@ -117,8 +117,8 @@ struct CalendarGridView: View {
                         action: { viewStore.send(.booking(event)) },
                         name: event.title,
                         width: event.width - 25,
-                        padding: 30
-                    )
+                        padding: 30,
+                        platform: event.platform)
             } else {
                 CalendarCell(day: day)
             }
@@ -139,7 +139,7 @@ struct CalendarGridView: View {
     private func getEvent(
         dateIndex: Int,
         sectionIndex: Int,
-        platforms: [Platforms: Bool] = Platforms.defaultState
+        platforms: [Platform: Bool] = Platform.defaultState
     ) -> Event? {
         events.getEvent(
             dateIndex: dateIndex,

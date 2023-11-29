@@ -19,10 +19,10 @@ struct CalendarReducer {
     }
     
     struct State: Equatable {
-        @BindingState var allPlatforms: [Platforms] = Platforms.default
+        @BindingState var allPlatforms: [Platform] = Platform.default
         @BindingState var event: Event?
         @BindingState var filter: FilterKey?
-        @BindingState var selectedPlatforms: [Platforms: Bool] = Platforms.defaultState
+        @BindingState var selectedPlatforms: [Platform: Bool] = Platform.defaultState
         
         var calendars: CalendarGridReducer.State?
         var booking: BookingsReducer.State?
@@ -66,8 +66,8 @@ struct CalendarReducer {
                 
                 if state.filterPlatforms == nil {
                     state.filterPlatforms = .init(
-                        platform: Platforms.default,
-                        filterState: Platforms.defaultState)
+                        platform: Platform.default,
+                        filterState: Platform.defaultState)
                 }
                 
                 return .none
