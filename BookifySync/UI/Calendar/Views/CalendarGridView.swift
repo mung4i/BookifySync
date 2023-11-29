@@ -21,7 +21,7 @@ struct CalendarGridView: View {
         repeating: GridItem(.fixed(50), spacing: 0, alignment: .top),
         count: 7)
     private let events = Event.examples
-    private let sections = Listing.examples
+    private let sections = Listing.dropdownListings
     
     init(
         sectionIndex: Int = 0,
@@ -74,17 +74,20 @@ struct CalendarGridView: View {
     }
     
     private func lowerGrid() -> some View {
-        LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(getDates(), id: \.self) { date in
-                let event = getEvent(
-                    dateIndex: date.toDay() - 1,
-                    sectionIndex: sectionIndex
-                )
-                
-                HStack(spacing: 0) {
-                    calendarCellBuilder(
-                        date: date,
-                        for: event)
+        WithViewStore(store, observe: { $0}) { viewStore in
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(getDates(), id: \.self) { date in
+                    let event = getEvent(
+                        dateIndex: date.toDay() - 1,
+                        sectionIndex: sectionIndex,
+                        platforms: viewStore.filterState
+                    )
+                    
+                    HStack(spacing: 0) {
+                        calendarCellBuilder(
+                            date: date,
+                            for: event)
+                    }
                 }
             }
         }
@@ -133,12 +136,17 @@ struct CalendarGridView: View {
             endDate: endDate)
     }
     
-    private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
+    private func getEvent(
+        dateIndex: Int,
+        sectionIndex: Int,
+        platforms: [Platforms: Bool] = Platforms.defaultState
+    ) -> Event? {
         events.getEvent(
             dateIndex: dateIndex,
             dates: getDates(),
             sections: sections,
-            sectionIndex: sectionIndex)
+            sectionIndex: sectionIndex,
+            platforms: platforms)
     }
 }
 

@@ -16,6 +16,7 @@ struct FilterReducer {
     
     struct State: Equatable {
         @BindingState var platform: [Platforms] = Platforms.allCases.map { $0 }
+        @BindingState var filterState: [Platforms: Bool] = Platforms.defaultState
     }
     
     var body: some Reducer<State, Action> {
@@ -23,14 +24,11 @@ struct FilterReducer {
             
             switch action {
             case .clear:
-                state.platform = []
-                state.platform = Platforms.allCases.map { $0 }
+                state.filterState = Platforms.defaultState
                 return .none
             case let .checkBoxTapped(platform):
-                if state.platform.contains(platform) {
-                    state.platform = state.platform.filter { $0 != platform }
-                } else {
-                    state.platform.append(platform)
+                if var platformFilterState = state.filterState[platform] {
+                    state.filterState[platform] = !platformFilterState
                 }
                 return .none
             }

@@ -34,6 +34,7 @@ struct FilterView: View {
                     ForEach(viewStore.state.platform, id: \.self) { platform in
                         Checkbox(
                             action: { viewStore.send(.checkBoxTapped(platform))},
+                            checked: viewStore.filterState[platform] ?? false,
                             title: platform.rawValue)
                     }
                 }
@@ -58,6 +59,7 @@ struct FilterView: View {
                 }
                 .padding(.horizontal, 16)
             }
+            .navigationBarBackButtonHidden()
         }
     }
 }
