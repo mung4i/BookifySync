@@ -13,7 +13,6 @@ extension View {
         name: String,
         width: CGFloat,
         height: CGFloat = 45,
-        padding: CGFloat = 25,
         isHidden: Bool = false,
         platform: Platform,
         padBottom: Bool = false
@@ -24,7 +23,6 @@ extension View {
                 name: name,
                 width: width,
                 height: height,
-                padding: padding,
                 isHidden: isHidden,
                 platform: platform,
                 padBottom: padBottom)

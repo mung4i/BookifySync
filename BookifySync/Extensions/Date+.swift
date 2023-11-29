@@ -8,6 +8,19 @@
 import Foundation
 
 extension Date {
+    
+    static var defaultDate: Date {
+        // Set the desired date components
+        var dateComponents = DateComponents()
+        dateComponents.year = 2023
+        dateComponents.month = 11
+        dateComponents.day = 1
+
+        // Create a calendar
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents) ?? Date()
+    }
+    
     static func advanceDate(
         component: Calendar.Component = .day,
         value: Int = 1,
@@ -36,7 +49,6 @@ extension Date {
     }
         
     func getDates(start: Date, endDate: Date) -> [Date] {
-        let calendar = Calendar.current
         var dates: [Date] = []
         var currentDate = start
 

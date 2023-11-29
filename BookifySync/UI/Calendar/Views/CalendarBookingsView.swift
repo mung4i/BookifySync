@@ -112,7 +112,7 @@ struct CalendarBookingsView: View {
                                 action: { viewStore.send(.showBooking(event)) },
                                 name: event?.title ?? "",
                                 width: event?.width ?? 150,
-                                padding: 125,
+                                height: 31,
                                 isHidden: event == nil,
                                 platform: event?.platform ?? .others)
                     }

@@ -48,6 +48,7 @@ struct CalendarGridView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            
             IfLetStore(
                 self.store.scope(
                     state: \.dropDown,
@@ -60,8 +61,13 @@ struct CalendarGridView: View {
                     .zIndex(10)
             }
             
+            
             Spacer()
                 .frame(maxHeight: 32)
+            
+            Text(Date.now.formatDate("MMMM"))
+                .font(.headingRegular)
+                .padding(.leading, 20)
             
             VStack(spacing: .zero) {
                 upperGrid()
@@ -80,13 +86,12 @@ struct CalendarGridView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             let day = date.formatDate("d")
             if let event {
-                CalendarCell(day: day, showTitle: true)
+                CalendarCell(day: day, showTitle: date.inRange(start: event.startDate, end: event.endDate))
                     .pillView(
                         action: { viewStore.send(.booking(event)) },
                         name: event.title,
-                        width: event.width - 25,
+                        width: event.gridWidth,
                         height: 34,
-                        padding: 0,
                         platform: event.platform,
                         padBottom: true)
             } else {
@@ -97,7 +102,7 @@ struct CalendarGridView: View {
     }
     
     private func dateHasEvent(date: Date) -> Bool {
-        events.hasEvent(date: date)
+        events.hasEvent(date: date, id: sectionIndex)
     }
 
     private func getDates() -> [Date] {
@@ -146,6 +151,7 @@ struct CalendarGridView: View {
                     let date = getDates()[index]
                     CalendarCell(
                         day: date.formatDate("E"),
+                        height: 66,
                         showTitle: false)
                 }
             }
