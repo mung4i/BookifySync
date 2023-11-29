@@ -19,11 +19,10 @@ struct CalendarReducer {
     }
     
     struct State: Equatable {
-        @BindingState var filter: FilterKey?
+        @BindingState var allPlatforms: [Platforms] = Platforms.default
         @BindingState var event: Event?
-        @BindingState var platforms: [Platforms] = Platforms
-            .allCases
-            .map { $0 }
+        @BindingState var filter: FilterKey?
+        @BindingState var selectedPlatforms: [Platforms: Bool] = Platforms.defaultState
         
         var calendars: CalendarGridReducer.State?
         var booking: BookingsReducer.State?
@@ -50,9 +49,27 @@ struct CalendarReducer {
                 
             case let .setFilterState(key):
                 state.filter = key
-                state.booking = .init(
-                    dropdown: .init(filter: key, id: .init())
-                )
+                
+                let dropdownState = DropdownReducer.State(filter: key, id: UUID())
+                
+                if state.booking == nil {
+                    state.booking = .init(dropdown: dropdownState)
+                } else {
+                    state.booking?.dropdown?.filter = key
+                }
+                
+                if state.calendars == nil {
+                    state.calendars = .init(filter: key, dropDown: dropdownState)
+                }
+                
+                state.calendars?.filter = key
+                
+                if state.filterPlatforms == nil {
+                    state.filterPlatforms = .init(
+                        platform: Platforms.default,
+                        filterState: Platforms.defaultState)
+                }
+                
                 return .none
                 
             case let .showCalendarView(.booking(event)):
@@ -61,16 +78,19 @@ struct CalendarReducer {
                 
             case let .showCalendarView(.dropdown(.filterTapped(filter))):
                 state.filter = filter
+                state.booking?.dropdown?.filter = filter
+                state.calendars?.dropDown?.filter = filter
                 return .none
                 
             case .showCalendarView(.showCalendarGrid):
                 return .none
                 
-            case .toggleFilters(.checkBoxTapped):
-                state.platforms = state.filterPlatforms?.platform ?? []
-                return .none
-                
-            case .toggleFilters(.clear):
+            case .toggleFilters:
+                if let selectedPlatforms = state.filterPlatforms?.filterState {
+                    state.selectedPlatforms = selectedPlatforms
+                    state.booking?.filterState = selectedPlatforms
+                    state.calendars?.filterState = selectedPlatforms
+                }
                 return .none
             }
         }
@@ -89,11 +109,7 @@ struct CalendarReducer {
 extension CalendarReducer {
     static func mockStore() -> StoreOf<CalendarReducer> {
         Store(
-            initialState: CalendarReducer.State(
-                calendars: .init(),
-                booking: .init(),
-                filterPlatforms: .init(platform: [])
-            )
+            initialState: CalendarReducer.State()
         ) {
             CalendarReducer()._printChanges()
         }
