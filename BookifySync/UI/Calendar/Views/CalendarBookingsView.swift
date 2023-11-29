@@ -11,7 +11,7 @@ import SwiftUI
 struct CalendarBookingsView: View {
     
     let endDate: Date = Date.advanceDate(component: .month)
-    let sections: [Listing] = Listing.examples
+    let sections: [Listing] = Listing.dropdownListings
     let startDate: Date = Date()
     
     let store: StoreOf<BookingsReducer>
@@ -45,7 +45,7 @@ struct CalendarBookingsView: View {
     }
     
     private func grid() -> some View {
-        ForEach(0..<sections.count, id: \.self) { sectionIndex in
+        ForEach(1..<sections.count, id: \.self) { sectionIndex in
             innerGrid(sectionIndex)
         }
     }
@@ -66,7 +66,7 @@ struct CalendarBookingsView: View {
                             backgroundColor: Color.backgroundGray)
                         .background(Color.backgroundGray)
                         
-                        ForEach(0..<sections.count, id: \.self) { index in
+                        ForEach(1..<sections.count, id: \.self) { index in
                             let section = sections[index]
                             SectionView(
                                 sectionTitle: section.name,
@@ -103,7 +103,11 @@ struct CalendarBookingsView: View {
             Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                 GridRow {
                     ForEach(0..<getDateRange().count, id: \.self) { index in
-                        let event = getEvent(dateIndex: index, sectionIndex: sectionIndex)
+                        let event = getEvent(
+                            dateIndex: index,
+                            sectionIndex: sectionIndex,
+                            platforms: viewStore.filterState)
+                        
                         SectionView()
                             .pillView(
                                 action: { viewStore.send(.showBooking(event)) },
@@ -124,12 +128,14 @@ struct CalendarBookingsView: View {
             endDate: endDate)
     }
     
-    private func getEvent(dateIndex: Int, sectionIndex: Int) -> Event? {
+    private func getEvent(dateIndex: Int, sectionIndex: Int, platforms: [Platforms: Bool] = Platforms.defaultState) -> Event? {
         events.getEvent(
             dateIndex: dateIndex,
             dates: getDateRange(),
             sections: sections,
-            sectionIndex: sectionIndex)
+            sectionIndex: sectionIndex,
+            platforms: platforms
+        )
     }
 }
 
