@@ -20,7 +20,7 @@ struct CalendarBookingsView: View {
     @State var showListing: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 11) {
             IfLetStore(
                 self.store.scope(
                     state: \.dropdown,
@@ -28,7 +28,6 @@ struct CalendarBookingsView: View {
                 )
             ) { store in
                 DropDownView(store: store)
-                    .padding(.top, 16)
                     .frame(width: 280, height: 44)
                     .opacity(1)
                     .zIndex(10)
@@ -113,9 +112,9 @@ struct CalendarBookingsView: View {
                                 action: { viewStore.send(.showBooking(event)) },
                                 name: event?.title ?? "",
                                 width: event?.width ?? 150,
-                                padding: 125,
-                                isHidden: event == nil
-                            )
+                                height: 31,
+                                isHidden: event == nil,
+                                platform: event?.platform ?? .others)
                     }
                 }
             }
@@ -128,7 +127,7 @@ struct CalendarBookingsView: View {
             endDate: endDate)
     }
     
-    private func getEvent(dateIndex: Int, sectionIndex: Int, platforms: [Platforms: Bool] = Platforms.defaultState) -> Event? {
+    private func getEvent(dateIndex: Int, sectionIndex: Int, platforms: [Platform: Bool] = Platform.defaultState) -> Event? {
         events.getEvent(
             dateIndex: dateIndex,
             dates: getDateRange(),

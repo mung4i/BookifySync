@@ -12,7 +12,7 @@ struct TravelerCard: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "person.crop.circle")
+            Image("traveler", bundle: .main)
                 .resizable()
                 .frame(width: 80, height: 80)
                 .padding(EdgeInsets(top: 10, leading: 32, bottom: 10, trailing: 10))
@@ -27,15 +27,15 @@ struct TravelerCard: View {
                     .font(.subheading2)
                 
                 PillView(
-                    name: traveler.event.listing.name,
-                    width: traveler.event.width)
+                    name: traveler.event.title,
+                    width: 130,
+                    height: 31,
+                    platform: traveler.event.platform)
             }
             .padding(EdgeInsets(top: 32, leading: 10, bottom: 32, trailing: 32))
         }
         .background(.white)
         .frame(width: 265, height: 125)
-//        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
-//        .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
         .cornerRadius(8)
         .overlay {
             RoundedRectangle(cornerRadius: 8)

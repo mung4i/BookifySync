@@ -34,8 +34,6 @@ struct ListingView: View {
         .background(.white)
         .padding(.all, 16)
         .frame(width: 330, height: 389)
-//        .shadow(color: .black.opacity(0.05), radius: 45, x: 20, y: 20)
-//        .shadow(color: .black.opacity(0.05), radius: 20, x: -20, y: -20)
         .cornerRadius(8)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
@@ -54,6 +52,7 @@ struct ListingView: View {
                 Spacer()
             }
         }
+        
     }
 }
 

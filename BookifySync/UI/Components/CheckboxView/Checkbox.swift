@@ -33,10 +33,10 @@ struct Checkbox: View {
             
             CheckBoxView(action: action, checked: checked)
         }
-        .padding(.horizontal, 16)
     }
 }
 
 #Preview {
     Checkbox(checked: false, title: "Checkbox title")
+        .padding(.horizontal, 16)
 }

@@ -13,7 +13,7 @@ struct Event: Hashable {
     let endDate: Date
     let title: String
     let listing: Listing
-    let platform: Platforms
+    let platform: Platform
 }
 
 extension Event {
@@ -24,11 +24,11 @@ extension Event {
     }
     
     var width: CGFloat {
-        return CGFloat(difference <= 0  ? 150 : 50 * difference)
+        return CGFloat(difference <= 0  ? 100 : 100 * difference)
     }
     
     var gridWidth: CGFloat {
-        return CGFloat(difference <= 0  ? 75 : 50 * difference)
+        return CGFloat(difference <= 0  ? 50 : 50 * difference)
     }
     
     func showEvent(date: Date) -> Bool {
@@ -45,7 +45,7 @@ extension Sequence where Element == Event {
         dates: [Date],
         sections: [Listing],
         sectionIndex: Int,
-        platforms: [Platforms: Bool] = Platforms.defaultState
+        platforms: [Platform: Bool] = Platform.defaultState
     ) -> Event? {
         let selection = self.filter { event in
             event.listing.id == sections[sectionIndex].id &&
@@ -59,110 +59,161 @@ extension Sequence where Element == Event {
         return nil
     }
     
-    func hasEvent(date: Date) -> Bool {
+    func hasEvent(date: Date, id: Int) -> Bool {
         filter {
-            let startDate = $0.startDate.toDay()
-            let endDate = $0.endDate.toDay()
-            let day = date.toDay()
-            
-            if day > startDate && day <= endDate {
+            if ($0.listing.id == id) &&
+                date.inRange(start: $0.startDate, end: $0.endDate) {
                 return true
             }
+            
             return false
-        }.count == 0
+        }.count > 0
+    }
+}
+
+extension Date {
+    func inRange(start: Date, end: Date) -> Bool {
+        let minDate = min(start, end)
+        let maxDate = max(start, end)
+        return minDate <= self && self <= maxDate
     }
 }
 
 extension Event {
+    
+    private static var startDate: Date {
+        .defaultDate
+    }
+    
     static var examples: [Event] {
-        [
+        
+        let event1StartDate = startDate
+        let event1EndDate = Date.advanceDate(value: 3, date: event1StartDate)
+        
+        let event2StartDate = Date.advanceDate(value: 4, date: event1EndDate)
+        let event2EndDate = Date.advanceDate(value: 3, date: event2StartDate)
+        
+        let event3StartDate = startDate
+        let event3EndDate = Date.advanceDate(value: 4, date: event3StartDate)
+        
+        let event4StartDate = Date.advanceDate(value: 4, date: event3EndDate)
+        let event4EndDate = Date.advanceDate(value: 4, date: event4StartDate)
+        
+        let event5StartDate = Date.advanceDate(value: 15, date: startDate)
+        let event5EndDate = Date.advanceDate(value: 3, date: event5StartDate)
+        
+        let event6StartDate = Date.advanceDate(value: 19, date: startDate)
+        let event6EndDate = Date.advanceDate(value: 2, date: event6StartDate)
+        
+        let event7StartDate = Date.advanceDate(value: 22, date: startDate)
+        let event7EndDate = Date.advanceDate(value: 3, date: event7StartDate)
+        
+        let event8StartDate = Date.advanceDate(value: 30, date: startDate)
+        let event8EndDate = Date.advanceDate(value: 2, date: event8StartDate)
+        
+        let event9StartDate = startDate
+        let event9EndDate = Date.advanceDate(value: 2, date: event9StartDate)
+        
+        let event10StartDate = Date.advanceDate(value: 4, date: startDate)
+        let event10EndDate = Date.advanceDate(value: 3, date: event9StartDate)
+        
+        let event11StartDate = startDate
+        let event11EndDate = Date.advanceDate(value: 3, date: event11StartDate)
+        
+        let event12StartDate = Date.advanceDate(value: 4, date: startDate)
+        let event12EndDate = Date.advanceDate(value: 3, date: event12StartDate)
+        
+        let event13StartDate = startDate
+        let event13EndDate = Date.advanceDate(value: 3, date: event12StartDate)  
+
+        return [
             Event(
-                startDate: Date(),
-                endDate: .advanceDate(value: 3),
+                startDate: event1StartDate,
+                endDate: event1EndDate,
                 title: "Dakota David",
                 listing: Listing(id: 1, name: "Seaside Cottage"),
                 platform: .others),
             
             Event(
-                startDate: .advanceDate(value: 4),
-                endDate: .advanceDate(value: 3, date: .advanceDate(value: 4)),
+                startDate: event2StartDate,
+                endDate: event2EndDate,
                 title: "Dakota David",
                 listing: Listing(id: 1, name: "Seaside Cottage"),
                 platform: .others),
             
             Event(
-                startDate: Date(),
-                endDate: .advanceDate(value: 4),
+                startDate: event3StartDate,
+                endDate: event3EndDate,
                 title: "Asia Mkenya",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .tripitaca),
             
             Event(
-                startDate: .advanceDate(value: 4),
-                endDate: .advanceDate(value: 4, date: .advanceDate(value: 4)),
+                startDate: event4StartDate,
+                endDate: event4EndDate,
                 title: "Booking.com",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .booking),
             
             Event(
-                startDate: .advanceDate(value: 15),
-                endDate: .advanceDate(value: 3, date: .advanceDate(value: 15)),
+                startDate: event5StartDate,
+                endDate: event5EndDate,
                 title: "Diana Dee",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .tripitaca),
             
             Event(
-                startDate: .advanceDate(value: 18),
-                endDate: .advanceDate(value: 3, date: .advanceDate(value: 18)),
+                startDate: event6StartDate,
+                endDate: event6EndDate,
                 title: "Martin John",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .tripitaca),
             
             Event(
-                startDate: .advanceDate(value: 22),
-                endDate: .advanceDate(value: 6, date: .advanceDate(value: 22)),
+                startDate: event7StartDate,
+                endDate: event7EndDate,
                 title: "Dakota David",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .others),
             
             Event(
-                startDate: .advanceDate(value: 30),
-                endDate: .advanceDate(value: 2, date: .advanceDate(value: 30)),
+                startDate: event8StartDate,
+                endDate: event8EndDate,
                 title: "Dakota David",
                 listing: Listing(id: 2, name: "Mali Apartments"),
                 platform: .others),
             
             Event(
-                startDate: Date(),
-                endDate: .advanceDate(value: 3),
+                startDate: event9StartDate,
+                endDate: event9EndDate,
                 title: "Dakota David",
                 listing: Listing(id: 3, name: "Lui Homes"),
                 platform: .others),
             
             Event(
-                startDate: .advanceDate(value: 4),
-                endDate: .advanceDate(value: 3, date: .advanceDate(value: 4)),
+                startDate: event10StartDate,
+                endDate: event10EndDate,
                 title: "Airbnb",
                 listing: Listing(id: 3, name: "Lui Homes"),
                 platform: .airbnb),
             
             Event(
-                startDate: Date(),
-                endDate: .advanceDate(value: 3),
+                startDate: event11StartDate,
+                endDate: event11EndDate,
                 title: "Airbnb",
                 listing: Listing(id: 4, name: "City View"),
                 platform: .airbnb),
             
             Event(
-                startDate: .advanceDate(value: 4),
-                endDate: .advanceDate(value: 3, date: .advanceDate(value: 4)),
+                startDate: event12StartDate,
+                endDate: event12EndDate,
                 title: "Other Booking",
                 listing: Listing(id: 4, name: "City View"),
                 platform: .others),
             
             Event(
-                startDate: Date(),
-                endDate: .advanceDate(value: 3),
+                startDate: event13StartDate,
+                endDate: event13EndDate,
                 title: "Booking.com",
                 listing: Listing(id: 5, name: "Zuri Homes"),
                 platform: .booking),

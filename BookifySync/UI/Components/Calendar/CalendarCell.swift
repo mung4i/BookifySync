@@ -11,7 +11,7 @@ struct CalendarCell: View {
     init(
         day: String,
         width: CGFloat = 50,
-        height: CGFloat = 75,
+        height: CGFloat = 88,
         showTitle: Bool = true
     
     ) {
@@ -27,15 +27,14 @@ struct CalendarCell: View {
     let showTitle: Bool
     
     var body: some View {
-        SectionView(
+        CalendarSectionView(
             sectionTitle: day,
             width: width,
             height: height,
-            showTitle: showTitle
-        )
+            hasEvent: showTitle)
     }
 }
 
 #Preview {
-    CalendarCell(day: "1")
+    CalendarCell(day: "28")
 }

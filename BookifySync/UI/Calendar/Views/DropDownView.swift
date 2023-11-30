@@ -23,7 +23,6 @@ struct DropDownView: View {
                     dropdownList
                 }
             }
-            .padding(.horizontal, 8)
         }
     }
     
@@ -94,4 +93,5 @@ struct DropDownView: View {
     ) {
         DropdownReducer()._printChanges()
     })
+    .padding(.horizontal, 8)
 }

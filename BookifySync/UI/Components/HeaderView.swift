@@ -38,10 +38,11 @@ struct HeaderView: View {
                 .frame(width: imageDimension, height: imageDimension)
                 .onTapGesture(perform: action)
         }
-        .padding(.horizontal, 16)
+        
     }
 }
 
 #Preview {
     HeaderView(title: "Calendar", imageTitle: "filter")
+        .padding(.horizontal, 16)
 }

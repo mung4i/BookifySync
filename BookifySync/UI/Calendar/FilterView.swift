@@ -23,11 +23,9 @@ struct FilterView: View {
                     imageDimension: 56)
                 
                 Divider()
-                    .padding(.horizontal, 16)
                 
                 Text("Booking platform")
                     .font(.headingRegular)
-                    .padding(.horizontal, 16)
                 
                 
                 VStack(alignment: .leading, spacing: 32) {
@@ -42,7 +40,6 @@ struct FilterView: View {
                 Spacer()
                 
                 Divider()
-                    .padding(.horizontal, 16)
                 
                 HStack(alignment: .center) {
                     PrimaryButton(
@@ -57,8 +54,8 @@ struct FilterView: View {
                         title: "Apply",
                         isPrimary: true)
                 }
-                .padding(.horizontal, 16)
             }
+            .padding(.horizontal, 16)
             .navigationBarBackButtonHidden()
         }
     }

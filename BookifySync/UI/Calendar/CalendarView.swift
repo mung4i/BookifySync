@@ -32,11 +32,13 @@ struct CalendarView: View {
     var body: some View {
         WithViewStore(self.store, observe: ViewState.init) { viewStore in
             NavigationView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 11) {
                     HeaderView(
                         action: { showFilterView.toggle() },
                         title: "Calendar",
                         imageTitle: "filter")
+                    .padding(.top, 30)
+                    .padding(.trailing, 16)
                     
                     if showFilterView {
                         NavigationLink(
@@ -65,6 +67,7 @@ struct CalendarView: View {
                         .background(.white)
                     }
                 }
+                .padding(.leading, 16)
                 .navigationBarBackButtonHidden()
             }
         }
@@ -78,7 +81,6 @@ struct CalendarView: View {
             )
         ) { store in
             CalendarBookingsView(store: store)
-                .padding(.leading, 16)
         }
     }
     
